@@ -26,6 +26,8 @@ public class Main {
 				}
 			}
 		});
+		ConexionSQL conne = new ConexionSQL();
+		conne.conectar();
 	}
 
 	/**
