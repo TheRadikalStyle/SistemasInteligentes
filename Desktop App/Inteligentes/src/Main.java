@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
+import javax.swing.JButton;
 
 
 public class Main {
@@ -50,11 +51,19 @@ public class Main {
 		frame.getContentPane().add(comboBox);
 		
 		JLabel lblComboboxlabel = new JLabel("Selecciona el usuario");
-		lblComboboxlabel.setBounds(272, 0, 280, 24);
+		lblComboboxlabel.setBounds(260, 12, 280, 24);
 		frame.getContentPane().add(lblComboboxlabel);
 		
 		table = new JTable();
-		table.setBounds(12, 42, 624, 81);
+		table.setBounds(12, 62, 624, 81);
 		frame.getContentPane().add(table);
+		
+		JButton btnDiccionarios = new JButton("Diccionarios");
+		btnDiccionarios.setBounds(29, 239, 157, 25);
+		frame.getContentPane().add(btnDiccionarios);
+		
+		JButton btnRedNeuronal = new JButton("Red Neuronal");
+		btnRedNeuronal.setBounds(395, 239, 171, 25);
+		frame.getContentPane().add(btnRedNeuronal);
 	}
 }
