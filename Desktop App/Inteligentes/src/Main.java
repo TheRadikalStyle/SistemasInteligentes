@@ -1,5 +1,7 @@
 import java.awt.EventQueue;
+import java.sql.SQLException;
 
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -11,6 +13,10 @@ public class Main {
 
 	private JFrame frame;
 	private JTable table;
+	public static ConexionSQL conex = new ConexionSQL();
+	
+	public static JComboBox comboBox = new JComboBox();
+	static DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(); //modelo de combobox
 
 	/**
 	 * Launch the application.
@@ -26,8 +32,9 @@ public class Main {
 				}
 			}
 		});
-		ConexionSQL conne = new ConexionSQL();
-		conne.conectar();
+		//ConexionSQL conne = new ConexionSQL();
+		//conne.conectar();
+		app();
 	}
 
 	/**
@@ -40,7 +47,7 @@ public class Main {
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	public void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 650, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -48,7 +55,7 @@ public class Main {
 		frame.setTitle("Sistemas Inteligentes");
 		frame.getContentPane().setLayout(null);
 		
-		JComboBox comboBox = new JComboBox();
+		
 		comboBox.setBounds(12, 12, 230, 24);
 		frame.getContentPane().add(comboBox);
 		
@@ -67,5 +74,28 @@ public class Main {
 		JButton btnRedNeuronal = new JButton("Red Neuronal");
 		btnRedNeuronal.setBounds(395, 239, 171, 25);
 		frame.getContentPane().add(btnRedNeuronal);
+	}
+	
+	public static void app(){
+		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario";
+		try{
+			ConexionSQL conne = new ConexionSQL();
+			conne.conectar();
+			ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql);
+			ConexionSQL.rs = ConexionSQL.psql.executeQuery();
+			
+			comboBox.addItem("Selecciona un campo");
+			//comboBox.setModel(modeloCombo); //Agregamos el objeto
+			
+			while(ConexionSQL.rs.next()){
+				comboBox.addItem(ConexionSQL.rs.getObject("Usu_Nombre"));
+				//comboBox.addItem(ConexionSQL.rs.getObject("Usu_Nombre")); Para seleccionar campo en especifico
+				//comboBox.setModel(modeloCombo);
+			}
+			ConexionSQL.psql.close();
+			
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 }
