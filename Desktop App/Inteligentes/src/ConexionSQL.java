@@ -5,7 +5,7 @@ public class ConexionSQL {
 public static String user = "root";	
 public static String password = "";
 public static String driver = "com.mysql.jdbc.Driver";
-public static String url = "jdbc:mysql://127.0.0.1/inteligentes";
+public static String url = "jdbc:mysql://127.0.0.1:3306/inteligentes";
 
 public static Connection conn = null;
 public static PreparedStatement psql = null;

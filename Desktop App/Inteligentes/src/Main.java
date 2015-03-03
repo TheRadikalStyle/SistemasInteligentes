@@ -5,18 +5,21 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 
 
 public class Main {
 
 	private JFrame frame;
-	private JTable table;
+	public static JTable table;
 	public static ConexionSQL conex = new ConexionSQL();
-	
+
 	public static JComboBox comboBox = new JComboBox();
 	static DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(); //modelo de combobox
+	static DefaultTableModel modeloTabla = new DefaultTableModel();
 
 	/**
 	 * Launch the application.
@@ -53,29 +56,29 @@ public class Main {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setName("Interface");
 		frame.setTitle("Sistemas Inteligentes");
+		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
-		
-		
+
 		comboBox.setBounds(12, 12, 230, 24);
 		frame.getContentPane().add(comboBox);
-		
+
 		JLabel lblComboboxlabel = new JLabel("Selecciona el usuario");
 		lblComboboxlabel.setBounds(260, 12, 280, 24);
 		frame.getContentPane().add(lblComboboxlabel);
-		
+
 		table = new JTable();
 		table.setBounds(12, 62, 624, 81);
 		frame.getContentPane().add(table);
-		
+
 		JButton btnDiccionarios = new JButton("Diccionarios");
 		btnDiccionarios.setBounds(29, 239, 157, 25);
 		frame.getContentPane().add(btnDiccionarios);
-		
+
 		JButton btnRedNeuronal = new JButton("Red Neuronal");
 		btnRedNeuronal.setBounds(395, 239, 171, 25);
 		frame.getContentPane().add(btnRedNeuronal);
 	}
-	
+
 	public static void app(){
 		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario";
 		try{
@@ -83,19 +86,73 @@ public class Main {
 			conne.conectar();
 			ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql);
 			ConexionSQL.rs = ConexionSQL.psql.executeQuery();
-			
+
 			comboBox.addItem("Selecciona un campo");
 			//comboBox.setModel(modeloCombo); //Agregamos el objeto
-			
+
 			while(ConexionSQL.rs.next()){
 				comboBox.addItem(ConexionSQL.rs.getObject("Usu_Nombre"));
 				//comboBox.addItem(ConexionSQL.rs.getObject("Usu_Nombre")); Para seleccionar campo en especifico
 				//comboBox.setModel(modeloCombo);
 			}
 			ConexionSQL.psql.close();
-			
+
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
+		
+		/****TABLE****/
+		/*Iniciaria el Thread aqui*/
+				
+		//DefaultTableModel modeloTabla = new DefaultTableModel();
+		//JScrollPane scrollPane = new JScrollPane(table);
+		modeloTabla.addColumn("ID");
+		modeloTabla.addColumn("Nombre");
+		modeloTabla.addColumn("ID Comentario");
+		modeloTabla.addColumn("Comentario");
+
+		table.setModel(modeloTabla);
+
+		String nameBox = (String) comboBox.getSelectedItem();
+		String sql1 = "";
+		System.out.println(nameBox);
+		
+		if(comboBox.getSelectedIndex() == 0){
+			sql1 = "SELECT * FROM usuario";
+			System.out.println("Seleccionado 0");
+		}else{
+			sql1 = "SELECT * FROM usuario WHERE Usu_Nombre='"+nameBox+"'";
+		}
+		
+		//String [] datos = new String[10];
+		try{
+			ConexionSQL conne = new ConexionSQL();
+			conne.conectar();
+			ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql1);
+			ConexionSQL.rs = ConexionSQL.psql.executeQuery();
+
+			String N="", IDU="", UC="", IDC="";
+
+			while(ConexionSQL.rs.next()){
+				//		 datos[0] = ConexionSQL.rs.getString("Usu_Nombre");
+				//		 datos[1] = ConexionSQL.rs.getString("ID_Facebook");
+				//		 datos[2] = ConexionSQL.rs.getString("Usu_Comentario");
+				//		 datos[3] = ConexionSQL.rs.getString("ID_Comentario");
+
+				N = ConexionSQL.rs.getString("Usu_Nombre");
+				IDU = ConexionSQL.rs.getString("ID_Facebook");
+				UC = ConexionSQL.rs.getString("Usu_Comentario");
+				IDC = ConexionSQL.rs.getString("ID_Comentario");
+				//System.out.println(datos[0]);
+				modeloTabla.addRow(new Object[]{N,IDU,UC,IDC});
+			}
+			//modeloTabla.addRow(datos);
+			table.setModel(modeloTabla);
+			ConexionSQL.psql.close();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		/*Terminaria el thread aqui*/
 	}
 }
