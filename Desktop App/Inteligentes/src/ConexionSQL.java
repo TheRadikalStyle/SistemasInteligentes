@@ -19,16 +19,7 @@ public void conectar(){
 		conn = DriverManager.getConnection(url, user, password);
 		System.out.println("Conectado exitosamente");
 		
-//		//Jalando datos
-//		Statement estado = conn.createStatement();
-//		ResultSet resultado = estado.executeQuery("SELECT * FROM usuario");
-//		
-//		System.out.println("Datos \t Mas Datos");
-//		while(resultado.next()){
-//			System.out.println(resultado.getString("Usu_Comentario"));
-//		}
-//		
-//		desconectar();
+		//test();
 		
 	}catch(SQLException e){
 		System.out.println("Error de MySQL" /*+e.getMessage()*/);
@@ -50,4 +41,17 @@ public void desconectar(){
 	}
 	
 }
+
+/*public void test(){
+	//Connection Test
+	Statement estado = conn.createStatement();
+	ResultSet resultado = estado.executeQuery("SELECT * FROM usuario");
+	
+	System.out.println("Datos \t Mas Datos");
+	while(resultado.next()){
+		System.out.println(resultado.getString("Usu_Comentario"));
+	}
+	
+	desconectar();
+}*/
 }

@@ -3,10 +3,17 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
 
-public class ParseDiccionary {
 
-public void Lee(){
+public class ParseDictionary {
+	
+public static void main(String args[]){
+	JOptionPane.showMessageDialog(null, "Analisis por diccionario");
+}
+	
+
+/*public void Lee(){
 	File archivo = null;
 	try {
 	archivo = new File("archivo.txt");//"archivo.txt" es el archivo que va a leer
@@ -36,7 +43,7 @@ public void Lee(){
 	catch(IOException a){
 	System.out.println(a);
 	}
-}	
+}*/	
 	
 	
 }

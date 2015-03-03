@@ -1,5 +1,8 @@
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -9,6 +12,9 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class Main {
@@ -20,6 +26,7 @@ public class Main {
 	public static JComboBox comboBox = new JComboBox();
 	static DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(); //modelo de combobox
 	static DefaultTableModel modeloTabla = new DefaultTableModel();
+	public static String sql1 = "";
 
 	/**
 	 * Launch the application.
@@ -35,8 +42,6 @@ public class Main {
 				}
 			}
 		});
-		//ConexionSQL conne = new ConexionSQL();
-		//conne.conectar();
 		app();
 	}
 
@@ -58,6 +63,15 @@ public class Main {
 		frame.setTitle("Sistemas Inteligentes");
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
+		comboBox.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Hakuna matata");
+				//modeloTabla.setRowCount(0);
+				System.out.println(sql1);
+				nuevaTabla();
+				modeloTabla.fireTableDataChanged();
+			}
+		});
 
 		comboBox.setBounds(12, 12, 230, 24);
 		frame.getContentPane().add(comboBox);
@@ -67,16 +81,29 @@ public class Main {
 		frame.getContentPane().add(lblComboboxlabel);
 
 		table = new JTable();
-		table.setBounds(12, 62, 624, 81);
+		table.setRowSelectionAllowed(false);
+		table.setBounds(12, 62, 624, 166);
 		frame.getContentPane().add(table);
 
+
 		JButton btnDiccionarios = new JButton("Diccionarios");
+		btnDiccionarios.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.out.println("Click ParseDictionary");
+				ParseDictionary pd = new ParseDictionary();
+				pd.main(null);
+			}
+		});
 		btnDiccionarios.setBounds(29, 239, 157, 25);
 		frame.getContentPane().add(btnDiccionarios);
 
 		JButton btnRedNeuronal = new JButton("Red Neuronal");
 		btnRedNeuronal.setBounds(395, 239, 171, 25);
 		frame.getContentPane().add(btnRedNeuronal);
+
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setBounds(12, 62, 622, 166);
+		frame.getContentPane().add(scrollPane);
 	}
 
 	public static void app(){
@@ -84,46 +111,38 @@ public class Main {
 		try{
 			ConexionSQL conne = new ConexionSQL();
 			conne.conectar();
-			ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql);
-			ConexionSQL.rs = ConexionSQL.psql.executeQuery();
+			Statement a =ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql); //Cambio de variables debido a problemas de conexion y traslape de variables
+			ResultSet b = ConexionSQL.rs = ConexionSQL.psql.executeQuery();
 
 			comboBox.addItem("Selecciona un campo");
 			//comboBox.setModel(modeloCombo); //Agregamos el objeto
 
-			while(ConexionSQL.rs.next()){
-				comboBox.addItem(ConexionSQL.rs.getObject("Usu_Nombre"));
-				//comboBox.addItem(ConexionSQL.rs.getObject("Usu_Nombre")); Para seleccionar campo en especifico
-				//comboBox.setModel(modeloCombo);
+			while(b.next()){
+				comboBox.addItem(b.getObject("Usu_Nombre"));
 			}
-			ConexionSQL.psql.close();
+			a.close();
 
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		
+
 		/****TABLE****/
-		/*Iniciaria el Thread aqui*/
-				
-		//DefaultTableModel modeloTabla = new DefaultTableModel();
-		//JScrollPane scrollPane = new JScrollPane(table);
 		modeloTabla.addColumn("ID");
 		modeloTabla.addColumn("Nombre");
 		modeloTabla.addColumn("ID Comentario");
 		modeloTabla.addColumn("Comentario");
 
-		table.setModel(modeloTabla);
-
 		String nameBox = (String) comboBox.getSelectedItem();
-		String sql1 = "";
-		System.out.println(nameBox);
-		
-		if(comboBox.getSelectedIndex() == 0){
+
+		//System.out.println(nameBox);
+
+		//if(comboBox.getSelectedIndex() == 0){
 			sql1 = "SELECT * FROM usuario";
-			System.out.println("Seleccionado 0");
-		}else{
-			sql1 = "SELECT * FROM usuario WHERE Usu_Nombre='"+nameBox+"'";
-		}
-		
+			//System.out.println("Seleccionado 0");
+		//}else{
+		//	sql1 = "SELECT * FROM usuario WHERE Usu_Nombre='"+nameBox+"'";
+		//}
+
 		//String [] datos = new String[10];
 		try{
 			ConexionSQL conne = new ConexionSQL();
@@ -134,16 +153,10 @@ public class Main {
 			String N="", IDU="", UC="", IDC="";
 
 			while(ConexionSQL.rs.next()){
-				//		 datos[0] = ConexionSQL.rs.getString("Usu_Nombre");
-				//		 datos[1] = ConexionSQL.rs.getString("ID_Facebook");
-				//		 datos[2] = ConexionSQL.rs.getString("Usu_Comentario");
-				//		 datos[3] = ConexionSQL.rs.getString("ID_Comentario");
-
-				N = ConexionSQL.rs.getString("Usu_Nombre");
-				IDU = ConexionSQL.rs.getString("ID_Facebook");
-				UC = ConexionSQL.rs.getString("Usu_Comentario");
-				IDC = ConexionSQL.rs.getString("ID_Comentario");
-				//System.out.println(datos[0]);
+				N = ConexionSQL.rs.getString("ID_Facebook");
+				IDU = ConexionSQL.rs.getString("Usu_Nombre");
+				UC = ConexionSQL.rs.getString("ID_Comentario");
+				IDC = ConexionSQL.rs.getString("Usu_Comentario");
 				modeloTabla.addRow(new Object[]{N,IDU,UC,IDC});
 			}
 			//modeloTabla.addRow(datos);
@@ -153,6 +166,40 @@ public class Main {
 		}catch(SQLException e){
 			e.printStackTrace();
 		}
-		/*Terminaria el thread aqui*/
+		/***Finish Table***/
+	}
+
+	public static void nuevaTabla(){
+		/****TABLE****/
+		modeloTabla.setRowCount(0);
+
+		String nameBox = (String) comboBox.getSelectedItem();
+		if(comboBox.getSelectedIndex() == 0){
+			sql1 = "SELECT * FROM usuario";
+		}else{
+			sql1 = "SELECT * FROM usuario WHERE Usu_Nombre='"+nameBox+"'";
+		}
+
+		try{
+			ConexionSQL conne = new ConexionSQL();
+			conne.conectar();
+			ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql1);
+			ConexionSQL.rs = ConexionSQL.psql.executeQuery();
+
+			String N="", IDU="", UC="", IDC="";
+
+			while(ConexionSQL.rs.next()){
+				N = ConexionSQL.rs.getString("ID_Facebook");
+				IDU = ConexionSQL.rs.getString("Usu_Nombre");
+				UC = ConexionSQL.rs.getString("ID_Comentario");
+				IDC = ConexionSQL.rs.getString("Usu_Comentario");
+				modeloTabla.addRow(new Object[]{N,IDU,UC,IDC});
+			}
+			table.setModel(modeloTabla);
+			ConexionSQL.psql.close();
+
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
 	}
 }
