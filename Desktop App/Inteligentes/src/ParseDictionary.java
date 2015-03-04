@@ -20,7 +20,7 @@ public class ParseDictionary {
 	static ArrayList<String> datosBD = new ArrayList<String>();
 
 	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
-	private static String[] level1;
+	private static String[] level1 = Dic_Lvl1.split(",");
 	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron,mierda,ojete,hdp,hijaputa,hijoputa,pinche,inche,inchi,inshi,pinki,maldita,maldito,caca,caka,kk,mojon,joder,mta,puñetas,puños";
 	private static String[] level2 = Dic_Lvl2.split(",");
 	private static String Dic_Lvl3 = "perra,golfa,puto,puta,marica,verga,vergon,vergota,vergotas,vergas,chingada,cojer,coger,chupa,chupame,huevos,huebos,uevos,uebos,guebos,guevos,culo,kulo,prosti,prostituta,bulto,concha,cuca,webos,weboz,pelame,pelotas,cojones,negro,indigena,indio,india,nigga,pene,viola,violar,violare,sexo,felacion,tetas,tetona,tetotas,pito";
@@ -57,8 +57,7 @@ public static void dataObtain(){
 }
 
 public static void dataRecolection(){
-	for (int i = 0; i < Dic_Lvl1.length(); i++) { //Recorre Diccionario
-		level1 = Dic_Lvl1.split(",");
+	for (int i = 0; i < level1.length; i++) { //Recorre Diccionario
 		System.out.println(level1[i]);
 	}
 	
@@ -67,11 +66,10 @@ public static void dataRecolection(){
         
         String BDData = datosBD.get(i); //Obtiene los datos de la BD y separa las oraciones en palabras separadas por espacios
     	dataSeparated = BDData.split(" ");
-    	System.out.println(dataSeparated);
 	}
-	/*for (int i = 0; i < dataSeparated.length; i++) { //Recorre datos
+	for (int i = 0; i < dataSeparated.length; i++) { //Recorre datos
 		System.out.println(dataSeparated[i]);
-	}*/
+	}
 }
 
 /*public static void analisis(){
