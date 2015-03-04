@@ -2,6 +2,9 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import javax.swing.JOptionPane;
 
@@ -9,7 +12,28 @@ import javax.swing.JOptionPane;
 public class ParseDictionary {
 	
 public static void main(String args[]){
-	JOptionPane.showMessageDialog(null, "Analisis por diccionario");
+	JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
+	analisis();
+}
+
+public static void analisis(){
+	String sql2 = "SELECT Usu_Comentario FROM usuario WHERE Usu_Nombre="+"'"+Main.comboBox.getSelectedItem()+"'";
+	System.out.println(sql2);
+	try{
+		ConexionSQL conne = new ConexionSQL();
+		conne.conectar();
+		Statement c =ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql2); //Cambio de variables debido a problemas de conexion y traslape de variables
+		ResultSet d = ConexionSQL.rs = ConexionSQL.psql.executeQuery();
+
+		while(d.next()){
+			System.out.println(d.getString("Usu_Comentario"));
+		}
+		c.close();
+
+	}catch(SQLException e){
+		e.printStackTrace();
+		JOptionPane.showMessageDialog(null, "Error de conexion a la Base de Datos, intenta nuevamente");
+	}
 }
 	
 

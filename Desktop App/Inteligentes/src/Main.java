@@ -8,6 +8,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JButton;
@@ -124,6 +125,7 @@ public class Main {
 
 		}catch(SQLException e){
 			e.printStackTrace();
+			JOptionPane.showMessageDialog(null, "Error de conexion a la Base de Datos, intenta nuevamente");
 		}
 
 		/****TABLE****/
