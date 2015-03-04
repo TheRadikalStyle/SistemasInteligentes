@@ -5,11 +5,14 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 
 public class ParseDictionary {
+	
+	static ArrayList<String> datosBD = new ArrayList<String>();
 
 	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
 	private static String[] level1 = Dic_Lvl1.split(",");
@@ -21,6 +24,7 @@ public class ParseDictionary {
 public static void main(String args[]){
 	JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
 	dataObtain();
+	analisis();
 }
 
 public static void dataObtain(){
@@ -33,7 +37,8 @@ public static void dataObtain(){
 		ResultSet d = ConexionSQL.rs = ConexionSQL.psql.executeQuery();
 
 		while(d.next()){
-			System.out.println(d.getString("Usu_Comentario"));
+			datosBD.add(d.getString("Usu_Comentario"));
+			//System.out.println(d.getString("Usu_Comentario"));
 		}
 		c.close();
 
@@ -44,10 +49,13 @@ public static void dataObtain(){
 }
 
 public static void analisis(){
-	for (int i = 0; i < level1.length; i++) {
+	for (int i = 0; i < level1.length; i++) { //Recorre Diccionario
 		System.out.println(level1[i]);
 	}
 	
+	for(int i = 0;i<datosBD.size();i++){ //Recorre ArrayList
+        System.out.println(datosBD.get(i));
+	}
 }
 	
 
