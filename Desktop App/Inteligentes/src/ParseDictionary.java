@@ -10,13 +10,20 @@ import javax.swing.JOptionPane;
 
 
 public class ParseDictionary {
+
+	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
+	private static String[] level1 = Dic_Lvl1.split(",");
+	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron,mierda,ojete,hdp,hijaputa,hijoputa,pinche,inche,inchi,inshi,pinki,maldita,maldito,caca,caka,kk,mojon,joder,mta,puñetas,puños";
+	private static String[] level2 = Dic_Lvl2.split(",");
+	private static String Dic_Lvl3 = "perra,golfa,puto,puta,marica,verga,vergon,vergota,vergotas,vergas,chingada,cojer,coger,chupa,chupame,huevos,huebos,uevos,uebos,guebos,guevos,culo,kulo,prosti,prostituta,bulto,concha,cuca,webos,weboz,pelame,pelotas,cojones,negro,indigena,indio,india,nigga,pene,viola,violar,violare,sexo,felacion,tetas,tetona,tetotas,pito";
+	private static String[] level3 = Dic_Lvl3.split(",");
 	
 public static void main(String args[]){
 	JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
-	analisis();
+	dataObtain();
 }
 
-public static void analisis(){
+public static void dataObtain(){
 	String sql2 = "SELECT Usu_Comentario FROM usuario WHERE Usu_Nombre="+"'"+Main.comboBox.getSelectedItem()+"'";
 	System.out.println(sql2);
 	try{
@@ -34,6 +41,13 @@ public static void analisis(){
 		e.printStackTrace();
 		JOptionPane.showMessageDialog(null, "Error de conexion a la Base de Datos, intenta nuevamente");
 	}
+}
+
+public static void analisis(){
+	for (int i = 0; i < level1.length; i++) {
+		System.out.println(level1[i]);
+	}
+	
 }
 	
 
