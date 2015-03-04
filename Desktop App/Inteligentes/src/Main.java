@@ -1,3 +1,8 @@
+/*
+ * Autor: David Ochoa Gutierrez
+ * Project name: Ghost Freak
+ * */
+
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.sql.ResultSet;

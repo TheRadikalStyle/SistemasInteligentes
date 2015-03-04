@@ -1,3 +1,8 @@
+/*
+ * Autor: David Ochoa Gutierrez
+ * Project name: Ghost Freak
+ * */
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -15,16 +20,19 @@ public class ParseDictionary {
 	static ArrayList<String> datosBD = new ArrayList<String>();
 
 	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
-	private static String[] level1 = Dic_Lvl1.split(",");
+	private static String[] level1;
 	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron,mierda,ojete,hdp,hijaputa,hijoputa,pinche,inche,inchi,inshi,pinki,maldita,maldito,caca,caka,kk,mojon,joder,mta,puñetas,puños";
 	private static String[] level2 = Dic_Lvl2.split(",");
 	private static String Dic_Lvl3 = "perra,golfa,puto,puta,marica,verga,vergon,vergota,vergotas,vergas,chingada,cojer,coger,chupa,chupame,huevos,huebos,uevos,uebos,guebos,guevos,culo,kulo,prosti,prostituta,bulto,concha,cuca,webos,weboz,pelame,pelotas,cojones,negro,indigena,indio,india,nigga,pene,viola,violar,violare,sexo,felacion,tetas,tetona,tetotas,pito";
 	private static String[] level3 = Dic_Lvl3.split(",");
 	
+	private static String[] dataSeparated;
+	
 public static void main(String args[]){
 	JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
 	dataObtain();
-	analisis();
+	dataRecolection();
+	//analisis();
 }
 
 public static void dataObtain(){
@@ -48,15 +56,31 @@ public static void dataObtain(){
 	}
 }
 
-public static void analisis(){
-	for (int i = 0; i < level1.length; i++) { //Recorre Diccionario
+public static void dataRecolection(){
+	for (int i = 0; i < Dic_Lvl1.length(); i++) { //Recorre Diccionario
+		level1 = Dic_Lvl1.split(",");
 		System.out.println(level1[i]);
 	}
 	
 	for(int i = 0;i<datosBD.size();i++){ //Recorre ArrayList
         System.out.println(datosBD.get(i));
+        
+        String BDData = datosBD.get(i); //Obtiene los datos de la BD y separa las oraciones en palabras separadas por espacios
+    	dataSeparated = BDData.split(" ");
+    	System.out.println(dataSeparated);
 	}
+	/*for (int i = 0; i < dataSeparated.length; i++) { //Recorre datos
+		System.out.println(dataSeparated[i]);
+	}*/
 }
+
+/*public static void analisis(){
+	for(String datos: dataSeparated){
+		if(datos.equals()){
+			
+		}
+	}
+}*/
 	
 
 /*public void Lee(){

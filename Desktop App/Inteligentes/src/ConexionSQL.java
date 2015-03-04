@@ -1,3 +1,8 @@
+/*
+ * Autor: David Ochoa Gutierrez
+ * Project name: Ghost Freak
+ * */
+
 import java.sql.*;
 
 public class ConexionSQL {
