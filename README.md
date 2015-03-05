@@ -31,6 +31,12 @@ Proyecto divido en 3 secciones:
 3.- Aplicación de escritorio
 	
 	Se habia pensado en hacer un programa que se ejecutara dentro del servidor, pero debido a que no es tan potente, cambiamos de idea y pasar la parte de procesamiento a la PC de alguno de nosotros, este programa recopilará los datos de la BD y analizará por medio de Diccionarios y de una Red Neuronal
+	
+3-A.- Analisis por diccionario
+	Se analizarán los comentarios por medio de un diccionario, el cual consiste en un fichero de texto (.txt) o un String conteniendo los datos, dichos datos son las palabras que esperamos observar
+
+3-B.- Red Neuronal
+	Por medio de una red neuronal se analizaran los comentarios en base a diferentes heuristicas y entrenamiento de las neuronas
 
 Palabras claves - Keywords
  ** Base de Datos - Database
