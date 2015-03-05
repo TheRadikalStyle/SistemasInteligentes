@@ -43,6 +43,7 @@ public class Main {
 	public static JTextField textTotalPalabras;
 	public static JTextField textTotalMalas;
 	public static JLabel lblNivel = new JLabel("");
+	public static JTextArea textAreaBadWords = new JTextArea();
 
 	/**
 	 * Launch the application.
@@ -191,9 +192,9 @@ public class Main {
 		lblNivel.setBounds(29, 486, 315, 24);
 		frame.getContentPane().add(lblNivel);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(540, 285, 194, 225);
-		frame.getContentPane().add(textArea);
+		
+		textAreaBadWords.setBounds(540, 285, 194, 225);
+		frame.getContentPane().add(textAreaBadWords);
 	}
 
 	public static void app(){
