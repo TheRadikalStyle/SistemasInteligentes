@@ -3,6 +3,7 @@
  * Project name: Ghost Freak
  * */
 
+import java.awt.Color;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -22,7 +23,7 @@ public class ParseDictionary {
 	/************************START DICTIONARY DEFINITION**************************************************************/
 	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
 	private static String[] level1 = Dic_Lvl1.split(",");
-	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron,mierda,ojete,hdp,hijaputa,hijoputa,pinche,inche,inchi,inshi,pinki,maldita,maldito,caca,caka,kk,mojon,joder,mta,puñetas,puños";
+	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron,mierda,ojete,hdp,hijaputa,hijoputa,pinche,,pinches,inche,inchi,inshi,pinki,maldita,maldito,Maldita,caca,caka,kk,mojon,joder,mta,puñetas,puños";
 	private static String[] level2 = Dic_Lvl2.split(",");
 	private static String Dic_Lvl3 = "perra,golfa,puto,puta,marica,verga,vergon,vergota,vergotas,vergas,chingada,cojer,coger,chupa,chupame,huevos,huebos,uevos,uebos,guebos,guevos,culo,kulo,prosti,prostituta,bulto,concha,cuca,webos,weboz,pelame,pelotas,cojones,negro,indigena,indio,india,nigga,pene,viola,violar,violare,sexo,felacion,tetas,tetona,tetotas,pito";
 	private static String[] level3 = Dic_Lvl3.split(",");
@@ -141,65 +142,50 @@ public class ParseDictionary {
 	public static void resultados(){
 		System.out.println("Palabras Totales: "+TotalWords);
 		System.out.println("Palabras ofensivas de nivel 1: " +noGoodWords1);
+		Main.textN1.setText(""+noGoodWords1);
 		System.out.println("Palabras ofensivas de nivel 2: " +noGoodWords2);
+		Main.textN2.setText(""+noGoodWords2);
 		System.out.println("Palabras ofensivas de nivel 3: " +noGoodWords3);
+		Main.textN3.setText(""+noGoodWords3);
 		int sum  = noGoodWords1 + noGoodWords2 + noGoodWords3;
 		System.out.println("El usuario dijo un total de "+sum +" palabras altisonantes de un total de " +TotalWords+ " palabras");
+		Main.textTotalPalabras.setText(""+TotalWords);
+		Main.textTotalMalas.setText(""+sum);
 		System.out.println("**************************************************************************************************\n");
 		String userBad = "";
 
 		if(noGoodWords1 > noGoodWords2){
-			userBad = "El usuario "+Main.comboBox.getSelectedItem()+" se ha clasificado en el NIVEL 1 de agresividad";
+			//userBad = "El usuario "+Main.comboBox.getSelectedItem()+" se ha clasificado en el NIVEL 1 de agresividad";
+			userBad = "Agresividad Nivel 1";
+			Main.lblNivel.setForeground(Color.green);
+			Main.lblNivel.setText(userBad);
 		}else if(noGoodWords2 >noGoodWords3){
-			userBad = "El usuario "+Main.comboBox.getSelectedItem()+" se ha clasificado en el NIVEL 2 de agresividad";   //  <---- Simple, pero funcional a mis propositos
+			//userBad = "El usuario "+Main.comboBox.getSelectedItem()+" se ha clasificado en el NIVEL 2 de agresividad";   //  <---- Simple, pero funcional a mis propositos
+			userBad = "Agresividad Nivel 2";
+			Main.lblNivel.setForeground(Color.blue);
+			Main.lblNivel.setText(userBad);
 		}else if(noGoodWords3 > noGoodWords1){
-			userBad = "El usuario "+Main.comboBox.getSelectedItem()+" se ha clasificado en el NIVEL 3 de agresividad";
+			//userBad = "El usuario "+Main.comboBox.getSelectedItem()+" se ha clasificado en el NIVEL 3 de agresividad";
+			userBad = "Agresividad Nivel 3";
+			Main.lblNivel.setForeground(Color.red);
+			Main.lblNivel.setText(userBad);
 		}else{
-			userBad = "El usuario "+Main.comboBox.getSelectedItem()+" NO cuenta con registros de agresividad";
+			//userBad = "El usuario "+Main.comboBox.getSelectedItem()+" NO cuenta con registros de agresividad";
+			userBad = "NO cuenta con registros de agresividad";
+			Main.lblNivel.setForeground(Color.black);
+			Main.lblNivel.setText(userBad);
 		}
 
 		System.out.println(userBad);
 		System.out.println("**************************************************************************************************\n");
+		
+		Main.lblNivel.setText(userBad);
 		/*for(int y = 0; y < noGoodWordsArray1; y++){
 	System.out.println(noGoodWordsArray1[y]);
 	}*/
-		TotalWords = 0;
+		TotalWords = 0;  //Reseteo de variables para evitar errores
 		noGoodWords1 = 0;
 		noGoodWords2 = 0;
 		noGoodWords3 = 0;
 	}
-
-
-	/*public void Lee(){
-	File archivo = null;
-	try {
-	archivo = new File("archivo.txt");//"archivo.txt" es el archivo que va a leer
-	String linea;
-	FileReader fr = new FileReader (archivo);
-	BufferedReader br = new BufferedReader(fr);
-	int i,j,a=0;
-	while((linea=br.readLine())!=null) {
-	for(i=0;i<linea.length();i++)
-	{if(i==0)
-	   {if(linea.charAt(i)!=' ')
-	    a++;
-	   }
-	   else
-	   {if(linea.charAt(i-1)==' ')
-	     if(linea.charAt(i)!=' ')	
-	       a++;
-
-	   }	
-	}
-	}
-
-	System.out.println("son "+a+" palabras");
-
-	fr.close();
-	}
-	catch(IOException a){
-	System.out.println(a);
-	}
-}*/	
-
 }

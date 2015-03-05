@@ -23,6 +23,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import java.awt.Color;
 
 
 public class Main {
@@ -35,11 +37,12 @@ public class Main {
 	static DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(); //modelo de combobox
 	static DefaultTableModel modeloTabla = new DefaultTableModel();
 	public static String sql1 = "";
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
+	public static JTextField textN1;
+	public static JTextField textN2;
+	public static JTextField textN3;
+	public static JTextField textTotalPalabras;
+	public static JTextField textTotalMalas;
+	public static JLabel lblNivel = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -70,7 +73,7 @@ public class Main {
 	 */
 	public void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 650, 500);
+		frame.setBounds(100, 100, 750, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setName("Interface");
 		frame.setTitle("Sistemas Inteligentes");
@@ -107,85 +110,90 @@ public class Main {
 				pd.main(null);
 			}
 		});
-		btnDiccionarios.setBounds(187, 239, 157, 25);
+		btnDiccionarios.setBounds(260, 239, 157, 25);
 		frame.getContentPane().add(btnDiccionarios);
 
 		JButton btnRedNeuronal = new JButton("Red Neuronal");
-		btnRedNeuronal.setBounds(391, 239, 171, 25);
+		btnRedNeuronal.setBounds(464, 239, 171, 25);
 		frame.getContentPane().add(btnRedNeuronal);
 
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setBounds(12, 62, 622, 166);
+		scrollPane.setBounds(12, 62, 722, 166);
 		frame.getContentPane().add(scrollPane);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBounds(29, 275, 591, 2);
+		separator.setBounds(29, 270, 687, 7);
 		frame.getContentPane().add(separator);
 		
 		JLabel lblSeleccionaMedioDe = new JLabel("Selecciona medio de analisis");
-		lblSeleccionaMedioDe.setBounds(22, 244, 155, 14);
+		lblSeleccionaMedioDe.setBounds(22, 244, 191, 14);
 		frame.getContentPane().add(lblSeleccionaMedioDe);
 		
-		textField = new JTextField();
-		textField.setBounds(534, 312, 86, 20);
-		frame.getContentPane().add(textField);
-		textField.setColumns(10);
+		textN1 = new JTextField();
+		textN1.setBounds(444, 312, 86, 20);
+		frame.getContentPane().add(textN1);
+		textN1.setColumns(10);
 		
-		textField_1 = new JTextField();
-		textField_1.setBounds(534, 340, 86, 20);
-		frame.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		textN2 = new JTextField();
+		textN2.setBounds(444, 340, 86, 20);
+		frame.getContentPane().add(textN2);
+		textN2.setColumns(10);
 		
-		textField_2 = new JTextField();
-		textField_2.setBounds(534, 371, 86, 20);
-		frame.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		textN3 = new JTextField();
+		textN3.setBounds(444, 371, 86, 20);
+		frame.getContentPane().add(textN3);
+		textN3.setColumns(10);
 		
 		JLabel lblN = new JLabel("N1");
-		lblN.setBounds(503, 315, 37, 14);
+		lblN.setBounds(388, 312, 37, 14);
 		frame.getContentPane().add(lblN);
 		
 		JLabel lblN_1 = new JLabel("N2");
-		lblN_1.setBounds(503, 343, 46, 14);
+		lblN_1.setBounds(388, 340, 46, 14);
 		frame.getContentPane().add(lblN_1);
 		
 		JLabel lblN_2 = new JLabel("N3");
-		lblN_2.setBounds(503, 374, 46, 14);
+		lblN_2.setBounds(388, 371, 46, 14);
 		frame.getContentPane().add(lblN_2);
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBounds(523, 399, 100, 7);
+		separator_1.setBounds(383, 399, 147, 7);
 		frame.getContentPane().add(separator_1);
 		
 		JLabel lblPalabrasAnalizadas = new JLabel("Palabras analizadas");
-		lblPalabrasAnalizadas.setBounds(517, 288, 117, 14);
+		lblPalabrasAnalizadas.setBounds(413, 290, 117, 14);
 		frame.getContentPane().add(lblPalabrasAnalizadas);
 		
 		JLabel lblTotalp = new JLabel("Total_P");
-		lblTotalp.setBounds(484, 417, 59, 14);
+		lblTotalp.setBounds(383, 417, 59, 14);
 		frame.getContentPane().add(lblTotalp);
 		
-		textField_3 = new JTextField();
-		textField_3.setBounds(534, 414, 86, 20);
-		frame.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		textTotalPalabras = new JTextField();
+		textTotalPalabras.setBounds(444, 414, 86, 20);
+		frame.getContentPane().add(textTotalPalabras);
+		textTotalPalabras.setColumns(10);
 		
-		textField_4 = new JTextField();
-		textField_4.setBounds(534, 442, 86, 20);
-		frame.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		textTotalMalas = new JTextField();
+		textTotalMalas.setBounds(444, 442, 86, 20);
+		frame.getContentPane().add(textTotalMalas);
+		textTotalMalas.setColumns(10);
 		
 		JLabel lblTotalmal = new JLabel("Total_Mal");
-		lblTotalmal.setBounds(484, 445, 46, 14);
+		lblTotalmal.setBounds(383, 445, 66, 14);
 		frame.getContentPane().add(lblTotalmal);
 		
 		JLabel lblElUsuarioSe = new JLabel("El usuario se ha catalogado como:");
-		lblElUsuarioSe.setBounds(29, 417, 213, 14);
+		lblElUsuarioSe.setBounds(29, 472, 213, 14);
 		frame.getContentPane().add(lblElUsuarioSe);
+		lblNivel.setForeground(Color.BLACK);
 		
-		JLabel lblNivel = new JLabel("Nivel");
-		lblNivel.setBounds(39, 445, 138, 14);
+		
+		lblNivel.setBounds(29, 486, 315, 24);
 		frame.getContentPane().add(lblNivel);
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(540, 285, 194, 225);
+		frame.getContentPane().add(textArea);
 	}
 
 	public static void app(){
