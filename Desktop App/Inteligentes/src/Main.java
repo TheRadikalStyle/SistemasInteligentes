@@ -25,6 +25,7 @@ import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 
 
 public class Main {
@@ -195,6 +196,11 @@ public class Main {
 		
 		textAreaBadWords.setBounds(540, 285, 194, 225);
 		frame.getContentPane().add(textAreaBadWords);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\David\\Documents\\GitHub\\SistemasInteligentes\\Desktop App\\Inteligentes\\img\\cort.gif"));
+		lblNewLabel.setBounds(29, 277, 259, 198);
+		frame.getContentPane().add(lblNewLabel);
 	}
 
 	public static void app(){
