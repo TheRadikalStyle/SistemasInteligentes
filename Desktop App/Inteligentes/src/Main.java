@@ -45,6 +45,7 @@ public class Main {
 	public static JTextField textTotalMalas;
 	public static JLabel lblNivel = new JLabel("");
 	public static JTextArea textAreaBadWords = new JTextArea();
+	public static JLabel labelPercentage = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -201,6 +202,14 @@ public class Main {
 		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\David\\Documents\\GitHub\\SistemasInteligentes\\Desktop App\\Inteligentes\\img\\cort.gif"));
 		lblNewLabel.setBounds(29, 277, 259, 198);
 		frame.getContentPane().add(lblNewLabel);
+		
+		
+		labelPercentage.setBounds(333, 486, 46, 14);
+		frame.getContentPane().add(labelPercentage);
+		
+		JScrollPane scrollPane_1 = new JScrollPane(textAreaBadWords);
+		scrollPane_1.setBounds(536, 282, 200, 228);
+		frame.getContentPane().add(scrollPane_1);
 	}
 
 	public static void app(){
