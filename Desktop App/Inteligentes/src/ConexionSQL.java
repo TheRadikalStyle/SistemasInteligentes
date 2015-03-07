@@ -5,6 +5,8 @@
 
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 public class ConexionSQL {
 
 public static String user = "root";	
@@ -28,6 +30,7 @@ public void conectar(){
 		
 	}catch(SQLException e){
 		System.out.println("Error de MySQL" /*+e.getMessage()*/);
+		JOptionPane.showMessageDialog(null, "Posiblemente la base de datos esté fuera de linea");
 		}catch(ClassNotFoundException e){
 		 e.printStackTrace();
 			}catch(Exception e){

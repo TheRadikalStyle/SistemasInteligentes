@@ -14,6 +14,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 
@@ -44,9 +45,9 @@ public class ParseDictionary {
 	static ArrayList<String> dataSeparated = new ArrayList<String>();
 
 	public static void main(String args[]){
+		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana_Think.gif"));
 		JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
 		Main.textAreaBadWords.setText("");
-		Main.textAreaBadWords.removeAll();
 		dataObtain();
 		dataRecolection();
 		analisis_lvl1();
@@ -56,6 +57,7 @@ public class ParseDictionary {
 		BDData.clear(); //Delete data for prevent bad results
 		datosBD.clear();
 		dataSeparated.clear();
+		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
 	}
 
 	public static void dataObtain(){
@@ -185,16 +187,16 @@ public class ParseDictionary {
 		Main.textAreaBadWords.setText("Palabras Nivel 1\n");
 		for(int bg = 0; bg < noGoodWordsArray1.size(); bg++){
 			System.out.println(noGoodWordsArray1.get(bg));
-			Main.textAreaBadWords.append(""+noGoodWordsArray1.get(bg));
+			//Main.textAreaBadWords.append("\n"+noGoodWordsArray1.get(bg));
 		}
 		Main.textAreaBadWords.append("\nPalabras Nivel 2\n");
 		for(int bg2 = 0; bg2 < noGoodWordsArray2.size(); bg2++){
-			System.out.println(noGoodWordsArray2.get(bg2));
+			//System.out.println(noGoodWordsArray2.get(bg2));
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray2.get(bg2));
 		}
 		Main.textAreaBadWords.append("\nPalabras Nivel 3\n");
 		for(int bg3 = 0; bg3 < noGoodWordsArray3.size(); bg3++){
-			System.out.println(noGoodWordsArray3.get(bg3));
+			//System.out.println(noGoodWordsArray3.get(bg3));
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray3.get(bg3));
 		}
 		

@@ -46,6 +46,7 @@ public class Main {
 	public static JLabel lblNivel = new JLabel("");
 	public static JTextArea textAreaBadWords = new JTextArea();
 	public static JLabel labelPercentage = new JLabel("");
+	public static JLabel labelImagen = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -198,10 +199,10 @@ public class Main {
 		textAreaBadWords.setBounds(540, 285, 194, 225);
 		frame.getContentPane().add(textAreaBadWords);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon("C:\\Users\\David\\Documents\\GitHub\\SistemasInteligentes\\Desktop App\\Inteligentes\\img\\cort.gif"));
-		lblNewLabel.setBounds(29, 277, 259, 198);
-		frame.getContentPane().add(lblNewLabel);
+		
+		labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
+		labelImagen.setBounds(29, 277, 213, 185);
+		frame.getContentPane().add(labelImagen);
 		
 		
 		labelPercentage.setBounds(333, 486, 46, 14);
