@@ -39,6 +39,7 @@ Proyecto divido en 3 secciones:
 	Por medio de una red neuronal se analizaran los comentarios en base a diferentes heuristicas y entrenamiento de las neuronas
 
 Palabras claves - Keywords
+
  ** Base de Datos - Database
   ** Red Neuronal - Neural Network
    ** Facebook API
