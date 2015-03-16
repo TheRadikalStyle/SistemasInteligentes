@@ -85,9 +85,9 @@ public class Main {
 		frame.getContentPane().setLayout(null);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Hakuna matata");
+				//System.out.println("Hakuna matata");
 				//modeloTabla.setRowCount(0);
-				System.out.println(sql1);
+				//System.out.println(sql1);
 				nuevaTabla();
 				modeloTabla.fireTableDataChanged();
 			}
@@ -194,6 +194,7 @@ public class Main {
 		
 		lblNivel.setBounds(29, 486, 315, 24);
 		frame.getContentPane().add(lblNivel);
+		textAreaBadWords.setEditable(false);
 		
 		
 		textAreaBadWords.setBounds(540, 285, 194, 225);
@@ -289,6 +290,7 @@ public class Main {
 		}
 
 		try{
+			System.out.println(sql1);
 			ConexionSQL conne = new ConexionSQL();
 			conne.conectar();
 			ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql1);

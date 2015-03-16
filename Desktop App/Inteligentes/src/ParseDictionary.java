@@ -54,10 +54,7 @@ public class ParseDictionary {
 		analisis_lvl2();
 		analisis_lvl3();
 		resultados();
-		BDData.clear(); //Delete data for prevent bad results
-		datosBD.clear();
-		dataSeparated.clear();
-		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
+		resetingValues();
 	}
 
 	public static void dataObtain(){
@@ -186,27 +183,37 @@ public class ParseDictionary {
 		Main.lblNivel.setText(userBad);
 		Main.textAreaBadWords.setText("Palabras Nivel 1\n");
 		for(int bg = 0; bg < noGoodWordsArray1.size(); bg++){
-			System.out.println(noGoodWordsArray1.get(bg));
-			//Main.textAreaBadWords.append("\n"+noGoodWordsArray1.get(bg));
+			//System.out.println(noGoodWordsArray1.get(bg)); [TESTING]
+			Main.textAreaBadWords.append("\n"+noGoodWordsArray1.get(bg));
 		}
 		Main.textAreaBadWords.append("\nPalabras Nivel 2\n");
 		for(int bg2 = 0; bg2 < noGoodWordsArray2.size(); bg2++){
-			//System.out.println(noGoodWordsArray2.get(bg2));
+			//System.out.println(noGoodWordsArray2.get(bg2));  [TESTING]
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray2.get(bg2));
 		}
 		Main.textAreaBadWords.append("\nPalabras Nivel 3\n");
 		for(int bg3 = 0; bg3 < noGoodWordsArray3.size(); bg3++){
-			//System.out.println(noGoodWordsArray3.get(bg3));
+			//System.out.println(noGoodWordsArray3.get(bg3));  [TESTING]
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray3.get(bg3));
 		}
 		
 		float percentage = (sum/TotalWords)*100;
 		System.out.println(percentage);
 		Main.labelPercentage.setText(""+percentage+"%");
-		
+	}
+	
+	private static void resetingValues(){
 		TotalWords = 0;  //Reseteo de variables para evitar errores
 		noGoodWords1 = 0;
 		noGoodWords2 = 0;
 		noGoodWords3 = 0;
+		noGoodWordsArray1.clear();
+		noGoodWordsArray2.clear();
+		noGoodWordsArray3.clear();
+		
+		BDData.clear(); //Delete data for prevent bad results
+		datosBD.clear();
+		dataSeparated.clear();
+		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
 	}
 }

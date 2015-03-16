@@ -30,7 +30,13 @@ public void conectar(){
 		
 	}catch(SQLException e){
 		System.out.println("Error de MySQL" /*+e.getMessage()*/);
-		JOptionPane.showMessageDialog(null, "Posiblemente la base de datos esté fuera de linea");
+		//JOptionPane.showMessageDialog(null, "Posiblemente la base de datos esta fuera de linea");
+		int input = JOptionPane.showOptionDialog(null, "Se saldrá del programa", "Error de conexion a Base de Datos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+		if(input == JOptionPane.OK_OPTION){
+			System.exit(0);
+		}else{
+			System.exit(0);
+		}
 		}catch(ClassNotFoundException e){
 		 e.printStackTrace();
 			}catch(Exception e){

@@ -1,3 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Recepcion de resultados</title>
+	<link type="text/css" rel="stylesheet" href="../css/style.css"/>
+</head>
+<body>
 <?php
 	echo "CommentID:".$_GET['comment_id']."<br>"; //Get the data on the URL by _GET instruction and identifier
 	echo "Comment:".$_GET['comment']."<br>";
@@ -11,9 +18,9 @@
 	
 	
 	$server = "127.0.0.1";
-	$user = ""; //MySQL Username
-	$password = ""; //MySQL Password
-	$dbname = "inteligentes";
+	$user = "";
+	$password = "";
+	$dbname = "";
 	
 	// Create connection
 $conn = new mysqli($server, $user, $password, $dbname);
@@ -27,9 +34,18 @@ $conn = new mysqli($server, $user, $password, $dbname);
 	if ($conn->query($sql) === TRUE) { //Verify if the query was successful or not
 		print "<br><br>";
 		echo "Nuevo comentario agregado exitosamente a la BD";
+		echo "<br>";
+		echo "Espera 3 segundos para redirigirte a la p&aacute;gina principal del proyecto...";
+		echo "<script>setTimeout(function(){   //A wait of 3 seconds
+						window.history.back();
+						},3000);
+						</script>";
 	} else {
 		echo "Error: " . $sql . "<br>" . $conn->error;
+		echo "POR FAVOR CONTACTANOS PARA INFORMARNOS SOBRE EL ERROR";
 	}
 
 $conn->close(); //Close connection
 ?>
+</body>
+</html>
