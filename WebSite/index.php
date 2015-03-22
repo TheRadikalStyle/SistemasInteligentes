@@ -3,8 +3,8 @@
 	<head>
 		<link type="text/css" rel="stylesheet" href="../css/style.css"/>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<meta property="fb:app_id" content="{APP_ID}"/>
-		<meta property="fb:admins" content="{FB_ADMIN_ACCOUNT_ID}"/>
+		<meta property="fb:app_id" content="{FACEBOOK_APPID}"/>
+		<meta property="fb:admins" content="{FACEBOOK_ADMIN_ID}"/>
 		<title>Sistemas inteligentes</title>
 		<?php
 			include('../headerBar.html');
@@ -22,7 +22,7 @@
 				
 				FB.init({
 							    
-					appId      : 'APP_ID',
+					appId      : 'FACEBOOK_APPID',
 					xfbml      : true,
 					status     : true,
 					cookie     : true,
@@ -74,7 +74,7 @@
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (d.getElementById(id)) return;
 					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=APP_ID&version=v2.0";
+					js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=FACEBOOK_APPID&version=v2.0";
 					fjs.parentNode.insertBefore(js, fjs);
 				}(document, 'script', 'facebook-jssdk'));
 			</script>

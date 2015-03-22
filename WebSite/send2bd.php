@@ -18,9 +18,9 @@
 	
 	
 	$server = "127.0.0.1";
-	$user = "";
-	$password = "";
-	$dbname = "";
+	$user = "MYSQL_USERNAME";
+	$password = "MYSQL_PASSWORD";
+	$dbname = "MYSQL_DBNAME";
 	
 	// Create connection
 $conn = new mysqli($server, $user, $password, $dbname);
