@@ -3,26 +3,33 @@
 	<head>
 		<link type="text/css" rel="stylesheet" href="../css/style.css"/>
 		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-		<meta property="fb:app_id" content="{FACEBOOK_APPID}"/>
-		<meta property="fb:admins" content="{FACEBOOK_ADMIN_ID}"/>
+		<meta property="fb:app_id" content="{906104149423872}"/>
+		<meta property="fb:admins" content="{10204937825518410}"/>
 		<title>Sistemas inteligentes</title>
 		<?php
 			include('../headerBar.html');
 		?>
+		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> LOADING IMAGE PASSED TO HEADERBAR
+			<script type="text/javascript">
+			$(window).load(function() {
+			$(".loader").fadeOut("slow");
+			})
+		</script>-->
 	</head>
 	
 	<body>
+		<!--<div class="loader"></div>  LOADER DIV PASSED TO HEADERBAR --> 
+
 		<div id="fb-root">
 			<script src="http://connect.facebook.net/es_LA/all.js"></script>
 		</div> 
-		
 		
 		<script> <!--API ACCESS-->
 			window.fbAsyncInit = function() {
 				
 				FB.init({
 							    
-					appId      : 'FACEBOOK_APPID',
+					appId      : '906104149423872',
 					xfbml      : true,
 					status     : true,
 					cookie     : true,
@@ -74,7 +81,7 @@
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (d.getElementById(id)) return;
 					js = d.createElement(s); js.id = id;
-					js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=FACEBOOK_APPID&version=v2.0";
+					js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&appId=906104149423872&version=v2.0";
 					fjs.parentNode.insertBefore(js, fjs);
 				}(document, 'script', 'facebook-jssdk'));
 			</script>
@@ -123,6 +130,7 @@
 			<div id="footer">
 				<div style="text-align:center"><p>Sistemas Inteligentes - Aula 4206 - Semestre Enero - Junio 2015 FIME-UANL</p></div>
 			</div>
+
 			
 		</body>
 		
