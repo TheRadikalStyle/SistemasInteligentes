@@ -9,12 +9,16 @@
 		<?php
 			include('../headerBar.html');
 		?>
-		<!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> LOADING IMAGE PASSED TO HEADERBAR
+		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>  <!--Import JQuery-->
+		<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+
 			<script type="text/javascript">
-			$(window).load(function() {
-			$(".loader").fadeOut("slow");
-			})
-		</script>-->
+			$(document).ready(function(){ 
+   			$('#DataUsage').on('click',function(){
+      		$('#DataUsageDiv').toggle('slow');
+   			});
+		   });
+		</script>
 	</head>
 	
 	<body>
@@ -70,6 +74,15 @@
 			<div style="text-align:center"><h1>Sistemas inteligentes</h1></div>
 			<p>Aqu&iacute; se hospedaran los comentarios que usaremos para guardarlos en una base de datos para su posterior analisis por medio de una red neuronal para determinar el grado de violencia</p>
 			
+			<p>Ver(<a href="#" id="DataUsage">Que datos recopilamos</a>)</p>
+			<div id="DataUsageDiv" style="display:none">
+				<p><b>ID de usuario</b>: Requerido para un ordenamiento de datos por caracteres numericos<br>
+					<b>Nombre de usuario</b>: Dado que una identificacion numerica no nos proporciona un nombre, lo requerimos<br>
+					<b>Comentario</b>: Este es el mensaje que usaremos para analizar con nuestros algoritmos y determinar el grado de violencia<br>
+					<b>ID de comentario</b>: Requerido para un ordenamiento de datos<br>
+				</p>
+			</div>
+
 			<br><br>
 			<!-- Like Button -->
 			<div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>
