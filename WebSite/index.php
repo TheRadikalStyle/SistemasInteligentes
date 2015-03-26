@@ -12,17 +12,35 @@
 		<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>  <!--Import JQuery-->
 		<script src="https://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-			<script type="text/javascript">
-			$(document).ready(function(){ 
-   			$('#DataUsage').on('click',function(){
-      		$('#DataUsageDiv').toggle('slow');
-   			});
-		   });
-		</script>
+		  <script type="text/javascript"> //Handler dataUsage div using JQuery
+				$(document).ready(function(){ 
+	   			$('#DataUsage').on('click',function(){
+	      		$('#DataUsageDiv').toggle('slow');
+	   			});
+			   });
+		  </script>
 	</head>
 	
 	<body>
-		<!--<div class="loader"></div>  LOADER DIV PASSED TO HEADERBAR --> 
+
+		<div id="div-nosesion" style="display:none"> <!--Div for show the error screen due to not connection to facebook app handle with JQuery -->
+			<!--<script>
+				/*$(document).ready(function(){
+			    $("a").hover(function(){
+			        $("a").css("background-image", "../css/images/facebook_login2.png");
+			        },function(){
+			        $("a").css("background-image", "../css/images/facebook_login.png");
+			    });
+			});*/
+			</script> -->
+
+			<br>
+			<p align="center">
+			Este proyecto necesita una conexion a facebook<br>
+			Por favor inicia sesion para continuar</p>
+			<br>
+			<a style="align="center"" href="#" onclick="fblogin()"><img src="../css/images/facebook_login.png"></a>
+		</div>
 
 		<div id="fb-root">
 			<script src="http://connect.facebook.net/es_LA/all.js"></script>
@@ -49,20 +67,16 @@
 							console.log('Hay una sesion iniciada');
 							}else if(response.status === 'not_authorized'){ //If is logged on FB but not in your app alert you and open the login form
 								console.log('Hay una sesión en FB pero no en la APP');
-								alert("Inicia sesion en facebook y concede los permisos necesarios, verifica que el bloqueador de elementos emergentes no bloquee el pop-up de login de facebook, si es la segunda vez que vez este aviso recarga la pagina");
-								FB.login(function(response){
-								if(response.authResponse){
-								window.location.reload();
-								return false;
-								}});
+			
+								$(document).ready(function(){ //JQuery handler for no session div
+											$('#div-nosesion').toggle();
+									});
 								}else {
 									console.log('No hay ninguna sesión iniciada');
-									alert("Inicia sesion en facebook y concede los permisos necesarios, verifica que el bloqueador de elementos emergentes no bloquee el pop-up de login de facebook, si es la segunda vez que vez este aviso recarga la pagina");
-									FB.login(function(response){
-									if(response.authResponse){
-									window.location.reload();
-									return false;
-									}});
+
+										$(document).ready(function(){//JQuery handler for no session div
+											$('#div-nosesion').toggle();
+									});
 								}	 
 					});
 				
@@ -74,7 +88,7 @@
 			<div style="text-align:center"><h1>Sistemas inteligentes</h1></div>
 			<p>Aqu&iacute; se hospedaran los comentarios que usaremos para guardarlos en una base de datos para su posterior analisis por medio de una red neuronal para determinar el grado de violencia</p>
 			
-			<p>Ver(<a href="#" id="DataUsage">Que datos recopilamos</a>)</p>
+			<p><a href="#" id="DataUsage">Que datos recopilamos</a></p>
 			<div id="DataUsageDiv" style="display:none">
 				<p><b>ID de usuario</b>: Requerido para un ordenamiento de datos por caracteres numericos<br>
 					<b>Nombre de usuario</b>: Dado que una identificacion numerica no nos proporciona un nombre, lo requerimos<br>
@@ -144,6 +158,15 @@
 				<div style="text-align:center"><p>Sistemas Inteligentes - Aula 4206 - Semestre Enero - Junio 2015 FIME-UANL</p></div>
 			</div>
 
+			<script type="text/javascript"> //Facebook login function for keep window emergent blocked on calm
+			function fblogin(){
+				FB.login(function(response){
+					if(response.authResponse){
+					window.location.reload();
+					return false;
+					}});
+				}
+			</script>
 			
 		</body>
 		
