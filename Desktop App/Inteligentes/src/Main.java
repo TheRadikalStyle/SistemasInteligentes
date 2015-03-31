@@ -118,6 +118,12 @@ public class Main {
 		frame.getContentPane().add(btnDiccionarios);
 
 		JButton btnRedNeuronal = new JButton("Red Neuronal");
+		btnRedNeuronal.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				ParseNeural Pfann = new ParseNeural();
+				Pfann.main();
+			}
+		});
 		btnRedNeuronal.setBounds(464, 239, 171, 25);
 		frame.getContentPane().add(btnRedNeuronal);
 
