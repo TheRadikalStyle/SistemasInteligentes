@@ -43,6 +43,8 @@ public class ParseDictionary {
 
 	static ArrayList<String> BDData = new ArrayList<String>();
 	static ArrayList<String> dataSeparated = new ArrayList<String>();
+	
+	static String sql2 = "";
 
 	public static void main(String args[]){
 		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana_Think.gif"));
@@ -58,8 +60,13 @@ public class ParseDictionary {
 	}
 
 	public static void dataObtain(){
-		String sql2 = "SELECT Usu_Comentario FROM usuario WHERE Usu_Nombre="+"'"+Main.comboBox.getSelectedItem()+"'";
+		if(Main.comboBox.getSelectedIndex() == 0){
+			sql2 = "SELECT Usu_Comentario FROM usuario";
+			System.out.println(sql2);
+		}else{
+		sql2 = "SELECT Usu_Comentario FROM usuario WHERE Usu_Nombre="+"'"+Main.comboBox.getSelectedItem()+"'";
 		System.out.println(sql2);
+		}
 		try{
 			ConexionSQL conne = new ConexionSQL();
 			conne.conectar();
@@ -96,6 +103,9 @@ public class ParseDictionary {
 			TotalWords = TotalWords + st.countTokens(); //Conteo de palabras
 			//String[] dato =  dat.split(" ");
 			while(st.hasMoreTokens()){
+				/*String datos2 = st.nextToken();
+				datos2 = datos2.toLowerCase(); //Conversion a minusculas
+				System.out.println(datos2);*/
 				dataSeparated.add(st.nextToken());
 			}
 		}
@@ -197,9 +207,9 @@ public class ParseDictionary {
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray3.get(bg3));
 		}
 		
-		float percentage = (sum/TotalWords)*100;
+		/*float percentage = (sum/TotalWords)*100;
 		System.out.println(percentage);
-		Main.labelPercentage.setText(""+percentage+"%");
+		Main.labelPercentage.setText(""+percentage+"%");*/
 	}
 	
 	private static void resetingValues(){

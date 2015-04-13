@@ -229,6 +229,7 @@ public class Main {
 			ResultSet b = ConexionSQL.rs = ConexionSQL.psql.executeQuery();
 
 			comboBox.addItem("Selecciona un campo");
+			System.out.println("Conexion para combobox");
 			//comboBox.setModel(modeloCombo); //Agregamos el objeto
 
 			while(b.next()){
