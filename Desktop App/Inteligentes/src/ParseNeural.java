@@ -7,7 +7,6 @@ import com.googlecode.fannj.Fann;
 
 public class ParseNeural {
 	public static void main(){
-	//System.setProperty("jna.library.path", ["C:\\Users\\David\\Downloads\\FAN\\bin\\fannfloat.dll"]);
 		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana_Think.gif"));
 		JOptionPane.showMessageDialog(null, "Analisis por red neuronal del usuario "+Main.comboBox.getSelectedItem());
 		

@@ -33,6 +33,8 @@ public class Main {
 	private JFrame frame;
 	public static JTable table;
 	public static ConexionSQL conex = new ConexionSQL();
+	
+	//public static boolean comprobador = true;
 
 	public static JComboBox comboBox = new JComboBox();
 	static DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel(); //modelo de combobox
@@ -221,14 +223,14 @@ public class Main {
 	}
 
 	public static void app(){
-		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario";
+		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario"; /*Lllenado de ComboBox*/
 		try{
 			ConexionSQL conne = new ConexionSQL();
 			conne.conectar();
 			Statement a =ConexionSQL.psql=ConexionSQL.conn.prepareStatement(sql); //Cambio de variables debido a problemas de conexion y traslape de variables
 			ResultSet b = ConexionSQL.rs = ConexionSQL.psql.executeQuery();
 
-			comboBox.addItem("Selecciona un campo");
+			comboBox.addItem("Analizar todo");
 			System.out.println("Conexion para combobox");
 			//comboBox.setModel(modeloCombo); //Agregamos el objeto
 
@@ -260,6 +262,7 @@ public class Main {
 		//}
 
 		//String [] datos = new String[10];
+		modeloTabla.setRowCount(0); //Agregado para borrar las tablas por defecto que carga el codigo
 		try{
 			ConexionSQL conne = new ConexionSQL();
 			conne.conectar();
