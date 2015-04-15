@@ -212,7 +212,7 @@ public class ParseDictionary {
 		Main.labelPercentage.setText(""+percentage+"%");*/
 	}
 	
-	private static void resetingValues(){
+	public static void resetingValues(){
 		TotalWords = 0;  //Reseteo de variables para evitar errores
 		noGoodWords1 = 0;
 		noGoodWords2 = 0;
@@ -225,5 +225,6 @@ public class ParseDictionary {
 		datosBD.clear();
 		dataSeparated.clear();
 		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
+		System.out.println("Valores reseteados");
 	}
 }

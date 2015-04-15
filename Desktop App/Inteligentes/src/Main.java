@@ -223,7 +223,7 @@ public class Main {
 	}
 
 	public static void app(){
-		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario"; /*Lllenado de ComboBox*/
+		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario ORDER BY Usu_Nombre ASC"; /*Lllenado de ComboBox*/
 		try{
 			ConexionSQL conne = new ConexionSQL();
 			conne.conectar();
