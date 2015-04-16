@@ -23,9 +23,6 @@ public class ParseNeural {
 		PD.dataObtain();
 		PD.dataRecolection();
 		PD.analisis_lvl1();
-		x = 1;
-		y = 0;
-		neural();
 		PD.analisis_lvl2();
 		PD.analisis_lvl3();
 		PD.resultados();
