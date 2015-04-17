@@ -11,9 +11,15 @@ public class ParseNeural {
 	public static void main(){
 		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana_Think.gif"));
 		JOptionPane.showMessageDialog(null, "Analisis por red neuronal del usuario "+Main.comboBox.getSelectedItem());
-			
+		
+		System.setProperty("jna.library.path", "C:\\Users\\David\\Downloads\\FANN\\bin\\"); //Right click for unlock the file on the system
+		System.out.println( System.getProperty("jna.library.path") ); //maybe the path is malformed
+		File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
+		System.out.println("Is the dll file there:" + file.exists());
+		System.load(file.getAbsolutePath());
+		
 		dataObtaining();
-		//neural();
+		neural();
 		resetValues();
 	    
 	   // Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
@@ -29,20 +35,19 @@ public class ParseNeural {
 	}
 	
 	public static void neural(){
-		System.setProperty("jna.library.path", "C:\\Users\\David\\Downloads\\FANN\\bin\\");
-		System.out.println( System.getProperty("jna.library.path") ); //maybe the path is malformed
-		File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
-		System.out.println("Is the dll file there:" + file.exists());
-		System.load(file.getAbsolutePath());
-		
-		Fann fann = new Fann( "C:\\Users\\David\\Desktop\\sunspots.net" );
-	    float[] inputs = new float[]{ 0, 1 };
-	    float[] outputs = fann.run( inputs );
-	    fann.close();
-	    
-	    for (float f : outputs) {
-	        System.out.print(f + ",");
-	    }
+
+		try{
+			Fann fann = new Fann( "C:\\Users\\David\\Desktop\\ms.net" );
+		    float[] inputs = new float[]{ 1, -1 };
+		    float[] outputs = fann.run( inputs );
+		    fann.close();
+		    
+		    for (float f : outputs) {
+		        System.out.print(f + ",");
+		    }
+		}catch(Exception e){
+			System.out.println("Error " +e.getMessage());
+		}
 	}
 	
 	public static void resetValues(){
