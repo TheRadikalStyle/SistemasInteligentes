@@ -2,7 +2,7 @@
 <html >
 	<head>
 		<link type="text/css" rel="stylesheet" href="../css/style.css"/>
-		<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+		<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type"> <!-- LATIN LANGUAGE -->
 		<meta property="fb:app_id" content="{906104149423872}"/>
 		<meta property="fb:admins" content="{10204937825518410}"/>
 		<title>Sistemas inteligentes</title>
@@ -19,6 +19,15 @@
 	   			});
 			   });
 		  </script>
+
+		  <script type="text/javascript"> //Handler Integrantes div using JQuery
+				$(document).ready(function(){ 
+	   			$('#Integrantes').on('click',function(){
+	      		$('#IntegrantesDiv').toggle('slow');
+	   			});
+			   });
+		  </script>
+
 	</head>
 	
 	<body>
@@ -39,7 +48,7 @@
 			Este proyecto necesita una conexion a facebook<br>
 			Por favor inicia sesion para continuar</p>
 			<br>
-			<a style="align="center"" href="#" onclick="fblogin()"><img src="../css/images/facebook_login.png"></a>
+			<a href="#" onclick="fblogin()"><img src="../css/images/facebook_login.png"></a>
 		</div>
 
 		<div id="fb-root">
@@ -87,15 +96,31 @@
 		<div id="contenedor">
 			<div style="text-align:center"><h1>Sistemas inteligentes</h1></div>
 			<p>Aqu&iacute; se hospedaran los comentarios que usaremos para guardarlos en una base de datos para su posterior analisis por medio de una red neuronal para determinar el grado de violencia</p>
-			
-			<p><a href="#" id="DataUsage">Que datos recopilamos</a></p>
-			<div id="DataUsageDiv" style="display:none">
-				<p><b>ID de usuario</b>: Requerido para un ordenamiento de datos por caracteres numericos<br>
+		
+<!-- SECCION INFORMACION EMPIEZA-->
+		<!--<div id="ContenedorDivsInformativos">
+			<p><a class="A" href="#" id="DataUsage">Que datos recopilamos</a></p>
+			<div id="DataUsageDiv" style="display:none; text-align:left">
+				<p><br>
+					<b>ID de usuario</b>: Requerido para un ordenamiento de datos por caracteres numericos<br>
 					<b>Nombre de usuario</b>: Dado que una identificacion numerica no nos proporciona un nombre, lo requerimos<br>
 					<b>Comentario</b>: Este es el mensaje que usaremos para analizar con nuestros algoritmos y determinar el grado de violencia<br>
 					<b>ID de comentario</b>: Requerido para un ordenamiento de datos<br>
 				</p>
 			</div>
+
+			<p><a class="B" href="#" id="Integrantes">Integrantes</a></p>
+			<div id="IntegrantesDiv" style="display:none; text-align:right">
+				<p><br>
+				David Ochoa Gutierrez<br>
+				Gustavo Davila Treviño<br>
+				Manuel Moreno<br>
+				Francisco Albear Cardenas<br>
+				Anaid Loza Cerda
+				</p>
+			</div>
+		</div>-->
+<!-- SECCION INFORMACION TERMINA-->
 
 			<br><br>
 			<!-- Like Button -->
@@ -148,10 +173,9 @@
 				}
 			</script>
 			
-			
-			
 			<br><br>
-			
+		</div> <!--Div contenedor-->	
+		
 			
 			<br><br><br>
 			<div id="footer">
@@ -169,5 +193,4 @@
 			</script>
 			
 		</body>
-		
 	</html>

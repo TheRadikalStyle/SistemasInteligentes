@@ -3,6 +3,7 @@
 <head>
 	<title>Recepcion de resultados</title>
 	<link type="text/css" rel="stylesheet" href="../css/style.css"/>
+	<meta content="text/html; charset=iso-8859-1" http-equiv="Content-Type">
 </head>
 <body>
 <?php
