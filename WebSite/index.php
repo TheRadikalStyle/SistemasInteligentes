@@ -98,7 +98,7 @@
 			<p>Aqu&iacute; se hospedaran los comentarios que usaremos para guardarlos en una base de datos para su posterior analisis por medio de una red neuronal para determinar el grado de violencia</p>
 		
 <!-- SECCION INFORMACION EMPIEZA-->
-		<!--<div id="ContenedorDivsInformativos">
+		<div id="ContenedorDivsInformativos">
 			<p><a class="A" href="#" id="DataUsage">Que datos recopilamos</a></p>
 			<div id="DataUsageDiv" style="display:none; text-align:left">
 				<p><br>
@@ -109,7 +109,7 @@
 				</p>
 			</div>
 
-			<p><a class="B" href="#" id="Integrantes">Integrantes</a></p>
+			<!--<p><a class="B" href="#" id="Integrantes">Integrantes</a></p>
 			<div id="IntegrantesDiv" style="display:none; text-align:right">
 				<p><br>
 				David Ochoa Gutierrez<br>
@@ -118,15 +118,13 @@
 				Francisco Albear Cardenas<br>
 				Anaid Loza Cerda
 				</p>
-			</div>
-		</div>-->
+			</div>-->
+		</div>
 <!-- SECCION INFORMACION TERMINA-->
-
 			<br><br>
 			<!-- Like Button -->
 			<div class="fb-like" data-share="true" data-width="450" data-show-faces="true"></div>
 			<!-- Like Button -->
-			<br><br>
 			
 			<script>
 			(function(d, s, id) { /*Comment box API*/
