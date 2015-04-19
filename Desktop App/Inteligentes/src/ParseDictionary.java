@@ -63,6 +63,7 @@ public class ParseDictionary {
 		if(Main.comboBox.getSelectedIndex() == 0){
 			sql2 = "SELECT Usu_Comentario FROM usuario";
 			System.out.println(sql2);
+			Main.lblElUsuarioSe.setText("Analisis de datos completos");
 		}else{
 		sql2 = "SELECT Usu_Comentario FROM usuario WHERE Usu_Nombre="+"'"+Main.comboBox.getSelectedItem()+"'";
 		System.out.println(sql2);

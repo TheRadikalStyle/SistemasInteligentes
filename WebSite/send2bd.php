@@ -16,7 +16,7 @@
 	$comment = $_GET['comment'];
 		if(eregi("'", $comment)){
 			$varReemplazar="'";
-			$varReemplazo="p";
+			$varReemplazo=" ";
 			$newComment = str_replace($varReemplazar, $varReemplazo, $comment); /*Replace character ' (if exist) on comment due to DB errors*/
 			$comment = $newComment;
 			print "<br>";

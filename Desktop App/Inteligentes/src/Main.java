@@ -5,10 +5,12 @@
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -21,10 +23,14 @@ import javax.swing.table.DefaultTableModel;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
+
 import java.awt.Color;
+import java.io.IOException;
+
 import javax.swing.ImageIcon;
 
 
@@ -49,6 +55,7 @@ public class Main {
 	public static JTextArea textAreaBadWords = new JTextArea();
 	public static JLabel labelPercentage = new JLabel("");
 	public static JLabel labelImagen = new JLabel("");
+	public static JLabel lblElUsuarioSe = new JLabel("");
 
 	/**
 	 * Launch the application.
@@ -111,7 +118,6 @@ public class Main {
 		JButton btnDiccionarios = new JButton("Diccionarios");
 		btnDiccionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Click ParseDictionary");
 				ParseDictionary pd = new ParseDictionary();
 				pd.main(null);
 			}
@@ -194,7 +200,7 @@ public class Main {
 		lblTotalmal.setBounds(383, 445, 66, 14);
 		frame.getContentPane().add(lblTotalmal);
 		
-		JLabel lblElUsuarioSe = new JLabel("El usuario se ha catalogado como:");
+		
 		lblElUsuarioSe.setBounds(29, 472, 213, 14);
 		frame.getContentPane().add(lblElUsuarioSe);
 		lblNivel.setForeground(Color.BLACK);
@@ -220,6 +226,16 @@ public class Main {
 		JScrollPane scrollPane_1 = new JScrollPane(textAreaBadWords);
 		scrollPane_1.setBounds(536, 282, 200, 228);
 		frame.getContentPane().add(scrollPane_1);
+		
+		JButton btnNewButton = new JButton("");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.out.println("TODO aqui irián las instrucciones de uso y creditos");
+			}
+		});
+		btnNewButton.setIcon(new ImageIcon("img\\about2.png"));
+		btnNewButton.setBounds(666, 11, 66, 39);
+		frame.getContentPane().add(btnNewButton);
 	}
 
 	public static void app(){
@@ -297,6 +313,7 @@ public class Main {
 			sql1 = "SELECT * FROM usuario";
 		}else{
 			sql1 = "SELECT * FROM usuario WHERE Usu_Nombre='"+nameBox+"'";
+			lblElUsuarioSe.setText("El usuario se ha catalogado como:");
 		}
 
 		try{
