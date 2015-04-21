@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.io.File;
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -14,6 +15,8 @@ import javax.swing.JOptionPane;
 import com.googlecode.fannj.Fann;
 
 public class ParseNeural {
+	float w, x, y, z = 0;
+	
 	static ArrayList<String> datosBD = new ArrayList<String>();
 	/************************START DICTIONARY DEFINITION**************************************************************/
 	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
@@ -32,6 +35,8 @@ public class ParseNeural {
 	static ArrayList<String> noGoodWordsArray1 = new ArrayList<String>(); //Almacen de palabras ofensivas por nivel
 	static ArrayList<String> noGoodWordsArray2 = new ArrayList<String>();
 	static ArrayList<String> noGoodWordsArray3 = new ArrayList<String>();
+	
+	static ArrayList<String> specialCharsArray = new ArrayList<String>();
 
 	public static int TotalWords = 0;
 
@@ -46,24 +51,32 @@ public class ParseNeural {
 		JOptionPane.showMessageDialog(null, "Analisis por red neuronal del usuario "+Main.comboBox.getSelectedItem());
 		Main.textAreaBadWords.setText("");
 		
-		//TODO Aqui deberia haber un TRY/CATCH
-		System.setProperty("jna.library.path", "C:\\Users\\David\\Downloads\\FANN\\FANN\\bin\\"); //Right click for unlock the file on the system
-		System.out.println( System.getProperty("jna.library.path") ); //maybe the path is malformed
-		File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
-		System.out.println("Is the dll file there:" + file.exists());
-		System.load(file.getAbsolutePath());
-		
-		dataObtaining();
-		dataRecolection();
-		analisis_lvl1();
-		analisis_lvl2();
-		analisis_lvl3();
-		resultados();
-		//neural();
-		resetingValues();
+		//TODO Aqui deberia haber un TRY/CATCH [Ya está pero no creo que funcione bien]
+		try{
+			System.setProperty("jna.library.path", "C:\\Users\\David\\Downloads\\FANN\\FANN\\bin\\"); //Right click for unlock the file on the system
+			System.out.println( System.getProperty("jna.library.path") ); //maybe the path is malformed
+			File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
+			System.out.println("Is the dll file there:" + file.exists());
+			try{
+				System.load(file.getAbsolutePath());
+				System.out.println("fannfloat dll cargado exitosamente");
+			}catch(Exception ex){
+			System.out.println("Ha ocurrido un error en la carga del dll fann " +ex);
+			}
+		}finally{
+			dataObtaining();
+			dataRecolection();
+			analisis_lvl1();
+			analisis_lvl2();
+			analisis_lvl3();
+			especiales();
+			resultados();
+			//neural();
+			resetingValues();
+		}
 	}
 	
-	public static void dataObtaining(){ //Saving code lines calling functions from ParseDictionary
+	public static void dataObtaining(){
 			if(Main.comboBox.getSelectedIndex() == 0){
 				sql2 = "SELECT Usu_Comentario FROM usuario";
 				System.out.println(sql2);
@@ -108,6 +121,11 @@ public class ParseNeural {
 				TotalWords = TotalWords + st.countTokens(); //Conteo de palabras
 				//String[] dato =  dat.split(" ");
 				while(st.hasMoreTokens()){
+					
+					
+					
+					
+					
 					/*Conversion a minusculas*/
 					String aMin = st.nextToken();
 					aMin = aMin.toLowerCase(); 
@@ -117,7 +135,7 @@ public class ParseNeural {
 					String delComma = aMin;
 					delComma = delComma.replace(",", " ");
 					
-					/*Reemplazo de acentos... Puntos y parentesis*/
+					/*Reemplazo de acentos... Puntos, parentesis y dieresis*/
 					if(delComma.contains("á")){ 
 						delComma = delComma.replace("á", "a");
 						System.out.println("Se cambio de la á a la a");
@@ -152,20 +170,20 @@ public class ParseNeural {
 																delComma = delComma.replace("ü", "u");
 																System.out.println("Se cambio de ü a una u");
 																}
+				
 					
 					/*Detector de caracteres especiales*/
-//						Pattern p = Pattern.compile("[^a-z0-9 ]"); //TODO Esto falla, debe detectar toda el string no el inicial
-//						Matcher m = p.matcher(delComma);
-//						boolean b = m.find();
-//
-//						if (b){
-//							String nueva = m.group().toString();
-//						   System.out.println("There is a special character in my string "+nueva);
-//						}/*else{
-//							//String nueva = m.group();
-//							System.out.println("No tiene caracter especial ");
-//						}*/
-//						
+						Pattern p = Pattern.compile("[^a-z0-9 ]");
+						Matcher m = p.matcher(delComma);
+						boolean b = m.find();
+
+						if (b){ //Si detecta caracteres especiales
+							//String nueva = m.group().toString();
+							delComma = delComma.toUpperCase();
+						   System.out.println("Caracteres especiales detectados en "+delComma);
+						   specialCharsArray.add(delComma);
+						}
+						
 						
 					/*Agregar a arraylist de "palabras separadas" y listas para analisis*/
 					dataSeparated.add(delComma);
@@ -211,7 +229,31 @@ public class ParseNeural {
 				}
 			}
 		}
-
+		
+		public static void especiales(){
+			if(!specialCharsArray.isEmpty()){ /*Si no esta vacio analizará*/
+				for(String dataToAnalize : specialCharsArray){
+					if(dataToAnalize.contains("Ñ")){
+						dataToAnalize = dataToAnalize.toLowerCase();
+						int size = dataToAnalize.length(); //TODO Analizarlos por medio de red neuronal
+					}
+					if(dataToAnalize.length() == 2){
+						System.out.println("Posible emoticon "+dataToAnalize);
+					}
+					if(dataToAnalize.length() == 3){
+						System.out.println("Posible insulto simplificado "+dataToAnalize);
+					}
+					if(dataToAnalize.length() >= 4){
+						System.out.println("Posible insulto o repeticion de letras"+dataToAnalize);
+					}
+					if(dataToAnalize.contains("*")){
+						System.out.println("insulto disfrazado - Nivel 3 aplicado "+dataToAnalize);
+						noGoodWordsArray3.add(dataToAnalize);
+					}
+				}
+			}
+		}
+		
 		public static void resultados(){
 			System.out.println("Palabras Totales: "+TotalWords);
 			System.out.println("Palabras ofensivas de nivel 1: " +noGoodWords1);
@@ -242,6 +284,12 @@ public class ParseNeural {
 				userBad = "Agresividad Nivel 3";
 				Main.lblNivel.setForeground(Color.red);
 				Main.lblNivel.setText(userBad);
+			}else if(noGoodWords1 == noGoodWords2){
+				//TODO Toma de decisión por medio de red neuronal
+			}else if(noGoodWords2 == noGoodWords3){
+				//TODO Toma de decisión por medio de red neuronal
+			}else if(noGoodWords3 == noGoodWords1){
+				//TODO Toma de decisión por medio de red neuronal
 			}else{
 				//userBad = "El usuario "+Main.comboBox.getSelectedItem()+" NO cuenta con registros de agresividad";
 				userBad = "NO cuenta con registros de agresividad";
@@ -282,6 +330,7 @@ public class ParseNeural {
 			noGoodWordsArray1.clear();
 			noGoodWordsArray2.clear();
 			noGoodWordsArray3.clear();
+			specialCharsArray.clear();
 			
 			BDData.clear(); //Delete data for prevent bad results
 			datosBD.clear();
@@ -290,11 +339,11 @@ public class ParseNeural {
 			System.out.println("Valores reseteados");
 		}
 	
-	public static void neural(){
+	public static void neural(float w,float x, float y, float z){
 
 		try{
 			Fann fann = new Fann( "C:\\Users\\David\\Downloads\\FANN\\FILES\\ms4.net" );
-		    float[] inputs = new float[]{ 1, -1 };
+		    float[] inputs = new float[]{w,x,y,z};
 		    float[] outputs = fann.run( inputs );
 		    fann.close();
 		    

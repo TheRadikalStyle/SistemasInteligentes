@@ -230,7 +230,8 @@ public class Main {
 		JButton btnNewButton = new JButton("");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				System.out.println("TODO aqui irián las instrucciones de uso y creditos");
+				About ab = new About();
+				ab.main(null);
 			}
 		});
 		btnNewButton.setIcon(new ImageIcon("img\\about2.png"));

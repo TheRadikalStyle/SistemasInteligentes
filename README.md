@@ -10,10 +10,11 @@ Laboratorio - Jueves N2
 
 Integrantes
 
- - David Ochoa
-  - Gustavo Davila
-   - Francisco Albear
-    - Victor Manuel Moreno
+ - David Ochoa Gutierrez
+  - Gustavo Davila Treviño
+   - Francisco Albear Cardenas
+    - Diana Anaid Loza Cerda
+     - Victor Manuel Martinez Moreno
 
 
 Proyecto divido en 3 secciones:
