@@ -15,7 +15,12 @@ import java.awt.Font;
 
 public class About {
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-
+	Color greyMaterial = Color.decode("#bdbdbd");
+	
+	private boolean holding;
+    private int seconds;
+    private Thread thread;
+	
 	public JFrame frmAcercaDe;
 
 	/**
@@ -53,8 +58,22 @@ public class About {
 				System.out.println("Presionado en el frame - Cerrando");
 				frmAcercaDe.setVisible(false);
 			}
+			@Override
+			public void mousePressed(MouseEvent arg0) {
+				holding = true;
+		        thread = new Thread();
+		        thread.start();
+		        System.out.println("Presionando sobre el panel");
+			}
+			@Override
+			public void mouseReleased(MouseEvent e)
+			    {
+			        holding = false;
+			        System.out.println("Held for: "+seconds);
+			    }
+
 		});
-		frmAcercaDe.getContentPane().setBackground(new Color(204, 204, 204));
+		frmAcercaDe.getContentPane().setBackground(greyMaterial);
 		frmAcercaDe.getContentPane().setLayout(null);
 		
 		JLabel lblIntegrantes = new JLabel("Integrantes");
@@ -95,6 +114,7 @@ public class About {
 		JSeparator separator = new JSeparator();
 		separator.setBounds(0, 270, 300, 2);
 		frmAcercaDe.getContentPane().add(separator);
+		
 		frmAcercaDe.setResizable(false);
 		frmAcercaDe.setTitle("Acerca de");
 		frmAcercaDe.setUndecorated(true);
@@ -105,4 +125,19 @@ public class About {
 		frmAcercaDe.setLocation(dim.width/2-frmAcercaDe.getSize().width/2, dim.height/2-frmAcercaDe.getSize().height/2);
 		//frmAcercaDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
+	
+	public void run(){
+        try{
+            while(holding){
+                seconds++;
+                // put some code here
+                if(seconds==3){
+                    holding = false;
+                    System.out.println("Held for maximum time!");
+                }
+            }
+        }catch(Exception e){e.printStackTrace();
+        }
+        }
+	
 }

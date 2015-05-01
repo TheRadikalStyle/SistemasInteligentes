@@ -1,29 +1,42 @@
 import java.awt.Color;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 import com.googlecode.fannj.Fann;
 
 public class ParseNeural {
-	float w, x, y, z = 0;
+	static String homeDir = System.getProperty("user.home");
+	static float w;
+
+	static float x;
+
+	static float y;
+
+	static float z;
+	
+	static float resultadoNeural;
 	
 	static ArrayList<String> datosBD = new ArrayList<String>();
 	/************************START DICTIONARY DEFINITION**************************************************************/
 	private static String Dic_Lvl1 = "tonto,tonta,sonso,sonsa,zonzo,zonza,tontita,tontito,wey,guey,invecil,imbecil,inbecil,imbecil,morro";
 	private static String[] level1 = Dic_Lvl1.split(",");
-	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron,mierda,ojete,hdp,hijaputa,hijoputa,pinche,pinches,inche,inchi,inshi,pinki,maldita,maldito,caca,caka,kk,mojon,joder,mta,puñetas,puños";
+	private static String Dic_Lvl2 = "idiota,pendejo,estupido,estupida,pendeja,madre,culero,culera,cabron, carajo,mierda,ojete,hdp,hijaputa,hijoputa,pinche,pinches,inche,inchi,inshi,pinki,maldita,maldito,caca,caka,kk,mojon,joder,mta,puñetas,puños";
 	private static String[] level2 = Dic_Lvl2.split(",");
-	private static String Dic_Lvl3 = "perra,golfa,puto,puta,marica,verga,vergon,vergota,vergotas,vergas,chingada,cojer,coger,chupa,chupame,huevos,huebos,uevos,uebos,guebos,guevos,culo,kulo,prosti,prostituta,bulto,concha,cuca,webos,weboz,pelame,pelotas,cojones,negro,indigena,indio,india,nigga,pene,viola,violar,violare,sexo,felacion,tetas,tetona,tetotas,pito";
+	private static String Dic_Lvl3 = "perra,golfa,puto,puta,marica,verga,vergon,vergota,vergotas,vergas,chingada,cojer,coger,chupa,chupame,huevos,huebos,uevos,uebos,guebos,guevos,culo,kulo,prosti,prostituta,bulto,concha,cuca,webos,weboz,pelame,pelotas,cojones,negro,indigena,indio,india,nigga,pene,viola,violar,violare,sexo,felacion,tetas,tetona,tetotas,pito,panocha,panochon";
 	private static String[] level3 = Dic_Lvl3.split(",");
 	/************************FINISH DICTIONARY DEFINITION**************************************************************/	
 	//private static String[] dataSeparated;
@@ -37,6 +50,7 @@ public class ParseNeural {
 	static ArrayList<String> noGoodWordsArray3 = new ArrayList<String>();
 	
 	static ArrayList<String> specialCharsArray = new ArrayList<String>();
+	static ArrayList<String> emoticonArray = new ArrayList<String>();
 
 	public static int TotalWords = 0;
 
@@ -47,14 +61,14 @@ public class ParseNeural {
 	
 	
 	public static void main(){
-		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana_Think.gif"));
+		Main.labelImagen.setIcon(new ImageIcon("img\\loading.gif"));
 		JOptionPane.showMessageDialog(null, "Analisis por red neuronal del usuario "+Main.comboBox.getSelectedItem());
 		Main.textAreaBadWords.setText("");
 		
 		//TODO Aqui deberia haber un TRY/CATCH [Ya está pero no creo que funcione bien]
 		try{
-			System.setProperty("jna.library.path", "C:\\Users\\David\\Downloads\\FANN\\FANN\\bin\\"); //Right click for unlock the file on the system
-			System.out.println( System.getProperty("jna.library.path") ); //maybe the path is malformed
+			System.setProperty("jna.library.path", homeDir+"\\Downloads\\FANN\\FANN\\bin\\");
+			System.out.println( System.getProperty("jna.library.path") );
 			File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
 			System.out.println("Is the dll file there:" + file.exists());
 			try{
@@ -72,7 +86,7 @@ public class ParseNeural {
 			especiales();
 			resultados();
 			//neural();
-			resetingValues();
+			resetingValues();		    
 		}
 	}
 	
@@ -120,11 +134,7 @@ public class ParseNeural {
 				StringTokenizer st = new StringTokenizer(dat); //Separa por tokens (palabras)
 				TotalWords = TotalWords + st.countTokens(); //Conteo de palabras
 				//String[] dato =  dat.split(" ");
-				while(st.hasMoreTokens()){
-					
-					
-					
-					
+				while(st.hasMoreTokens()){			
 					
 					/*Conversion a minusculas*/
 					String aMin = st.nextToken();
@@ -134,6 +144,18 @@ public class ParseNeural {
 					/*Eliminación de comas*/
 					String delComma = aMin;
 					delComma = delComma.replace(",", " ");
+					
+					/*Detector de caracteres especiales*/
+					Pattern p = Pattern.compile("[^a-z0-9 ]");
+					Matcher m = p.matcher(delComma);
+					boolean b = m.find();
+					
+					if (b){ //Si detecta caracteres especiales
+						//String nueva = m.group().toString();
+						delComma = delComma.toUpperCase();
+					   System.out.println("Caracteres especiales detectados en "+delComma);
+					   specialCharsArray.add(delComma);
+					}
 					
 					/*Reemplazo de acentos... Puntos, parentesis y dieresis*/
 					if(delComma.contains("á")){ 
@@ -170,22 +192,7 @@ public class ParseNeural {
 																delComma = delComma.replace("ü", "u");
 																System.out.println("Se cambio de ü a una u");
 																}
-				
-					
-					/*Detector de caracteres especiales*/
-						Pattern p = Pattern.compile("[^a-z0-9 ]");
-						Matcher m = p.matcher(delComma);
-						boolean b = m.find();
-
-						if (b){ //Si detecta caracteres especiales
-							//String nueva = m.group().toString();
-							delComma = delComma.toUpperCase();
-						   System.out.println("Caracteres especiales detectados en "+delComma);
-						   specialCharsArray.add(delComma);
-						}
-						
-						
-					/*Agregar a arraylist de "palabras separadas" y listas para analisis*/
+									/*Agregar a arraylist de "palabras separadas" y listas para analisis*/
 					dataSeparated.add(delComma);
 				}
 			}
@@ -206,21 +213,96 @@ public class ParseNeural {
 					}
 				}
 			}
+			
+			/*[Analisis avanzado] - Corrector ortografico y morfología conjunta*/
+			for(String datos: dataSeparated){ 
+				String nuevoDato = datos;
+				
+				Pattern p = Pattern.compile("[0-9]");
+				Matcher m = p.matcher(nuevoDato);
+				boolean b = m.find();
+
+				if (b){ //Si detecta caracteres especiales
+					System.out.println("Numeros detectados en "+nuevoDato);
+					String nuevoDato3 = nuevoDato;
+					/*Based from https://gustavoarielschwartz.files.wordpress.com/2013/05/letras-x-nc3bameros.jpg*/
+					nuevoDato3 = nuevoDato3.replaceAll("1", "i");
+					//nuevoDato2 = nuevoDato2.replaceAll("2", "s");
+					nuevoDato3 = nuevoDato3.replaceAll("3", "e");
+					nuevoDato3 = nuevoDato3.replaceAll("4", "a");
+					nuevoDato3 = nuevoDato3.replaceAll("5", "s");
+					nuevoDato3 = nuevoDato3.replaceAll("6", "g");
+					nuevoDato3 = nuevoDato3.replaceAll("7", "t");
+					nuevoDato3 = nuevoDato3.replaceAll("8", "b");
+					nuevoDato3 = nuevoDato3.replaceAll("9", "p");
+					nuevoDato3 = nuevoDato3.replaceAll("0", "o");
+					
+					nuevoDato3 = nuevoDato3.replaceAll("b", "v");
+					nuevoDato3 = nuevoDato3.replaceAll("z", "s");
+					
+					nuevoDato3 = nuevoDato3.replaceAll("(.)\\1", "$1"); /*Elimina caracteres repetidos*/
+					
+					for( int p2 = 0; p2 < level1.length; p2++){ //Por cada palabra del diccionario vas a analizar
+						if(nuevoDato3.contains(level1[p2])){ //Si corresponden (son iguales) ejecuta
+							noGoodWords1 = noGoodWords1 + 1; //Sumar el numero de palabras encontradas
+							noGoodWordsArray1.add(nuevoDato); //Agregar a un arrayList las palabras encontradas nueviDato = String original, sin cambio de letras
+						}
+					}
+				}
+			}
+			
+			
 		}
 
 		public static void analisis_lvl2(){ //Funcion de analisis del diccionario 2
 			for(String datos: dataSeparated){ // (For each), por cada string obtenido desde la base de datos va a hacer
 				for( int p1 = 0; p1 < level2.length; p1++){ //Por cada palabra del diccionario vas a analizar
-					if(datos.contains(level2[p1])){ //Si corresponden (son iguales) ejecuta //BUGGGGG
+					if(datos.contains(level2[p1])){ //Si corresponden (son iguales) ejecuta
 						noGoodWords2 = noGoodWords2 + 1; //Sumar el numero de palabras encontradas
 						noGoodWordsArray2.add(level2[p1]); //Agregar a un arrayList las palabras encontradas
+					}
+				}
+			}
+			/*[Analisis avanzado] - Corrector ortografico y morfología conjunta*/
+			for(String datos: dataSeparated){ 
+				String nuevoDato = datos;
+				
+				Pattern p = Pattern.compile("[0-9]");
+				Matcher m = p.matcher(nuevoDato);
+				boolean b = m.find();
+
+				if (b){ //Si detecta caracteres especiales
+					System.out.println("Numeros detectados en "+nuevoDato);
+					String nuevoDato4 = nuevoDato;
+					/*Based from https://gustavoarielschwartz.files.wordpress.com/2013/05/letras-x-nc3bameros.jpg*/
+					nuevoDato4 = nuevoDato4.replaceAll("1", "i");
+					//nuevoDato2 = nuevoDato2.replaceAll("2", "s");
+					nuevoDato4 = nuevoDato4.replaceAll("3", "e");
+					nuevoDato4 = nuevoDato4.replaceAll("4", "a");
+					nuevoDato4 = nuevoDato4.replaceAll("5", "s");
+					nuevoDato4 = nuevoDato4.replaceAll("6", "g");
+					nuevoDato4 = nuevoDato4.replaceAll("7", "t");
+					nuevoDato4 = nuevoDato4.replaceAll("8", "b");
+					nuevoDato4 = nuevoDato4.replaceAll("9", "p");
+					nuevoDato4 = nuevoDato4.replaceAll("0", "o");
+					
+					nuevoDato4 = nuevoDato4.replaceAll("b", "v");
+					nuevoDato4 = nuevoDato4.replaceAll("z", "s");
+					
+					nuevoDato4 = nuevoDato4.replaceAll("(.)\\1", "$1"); /*Elimina caracteres repetidos*/
+					
+					for( int p2 = 0; p2 < level2.length; p2++){ //Por cada palabra del diccionario vas a analizar
+						if(nuevoDato4.contains(level2[p2])){ //Si corresponden (son iguales) ejecuta
+							noGoodWords2 = noGoodWords2 + 1; //Sumar el numero de palabras encontradas
+							noGoodWordsArray2.add(nuevoDato); //Agregar a un arrayList las palabras encontradas nueviDato = String original, sin cambio de letras
+						}
 					}
 				}
 			}
 		}
 
 		public static void analisis_lvl3(){ //Funcion de analisis del diccionario 3
-			for(String datos: dataSeparated){ // (For each), por cada string obtenido desde la base de datos va a hacer
+			for(String datos: dataSeparated){ // (For each), por cada string obtenido desde la base de datos va a hacer [Analisis sencillo]
 				for( int p2 = 0; p2 < level3.length; p2++){ //Por cada palabra del diccionario vas a analizar
 					if(datos.contains(level3[p2])){ //Si corresponden (son iguales) ejecuta
 						noGoodWords3 = noGoodWords3 + 1; //Sumar el numero de palabras encontradas
@@ -228,6 +310,97 @@ public class ParseNeural {
 					}
 				}
 			}
+//			/*[Analisis avanzado] - Morfología numerica*/
+//			for(String datos: dataSeparated){ 
+//				String nuevoDato = datos;
+//				
+//				Pattern p = Pattern.compile("[0-9]");
+//				Matcher m = p.matcher(nuevoDato);
+//				boolean b = m.find();
+//
+//				if (b){ //Si detecta caracteres especiales
+//					System.out.println("Numeros detectados en "+nuevoDato);
+//					//String nueva = m.group().toString();
+//					//delComma = delComma.toUpperCase();
+//					String nuevoDato2 = nuevoDato;
+//					/*Based from https://gustavoarielschwartz.files.wordpress.com/2013/05/letras-x-nc3bameros.jpg*/
+//					nuevoDato2 = nuevoDato2.replaceAll("1", "i");
+//					//nuevoDato2 = nuevoDato2.replaceAll("2", "s");
+//					nuevoDato2 = nuevoDato2.replaceAll("3", "e");
+//					nuevoDato2 = nuevoDato2.replaceAll("4", "a");
+//					nuevoDato2 = nuevoDato2.replaceAll("5", "s");
+//					nuevoDato2 = nuevoDato2.replaceAll("6", "g");
+//					nuevoDato2 = nuevoDato2.replaceAll("7", "t");
+//					nuevoDato2 = nuevoDato2.replaceAll("8", "b");
+//					nuevoDato2 = nuevoDato2.replaceAll("9", "p");
+//					nuevoDato2 = nuevoDato2.replaceAll("0", "o");
+//					
+//					nuevoDato2 = nuevoDato2.replaceAll("(.)\\1", "$1"); /*Elimina caracteres repetidos*/
+//					
+//					for( int p2 = 0; p2 < level3.length; p2++){ //Por cada palabra del diccionario vas a analizar
+//						if(nuevoDato2.contains(level3[p2])){ //Si corresponden (son iguales) ejecuta
+//							noGoodWords3 = noGoodWords3 + 1; //Sumar el numero de palabras encontradas
+//							noGoodWordsArray3.add(nuevoDato); //Agregar a un arrayList las palabras encontradas nueviDato = String original, sin cambio de letras
+//						}
+//					}
+//				}
+//			}
+//			/*[Analisis avanzado] - Corrector ortografico*/
+//			for(String datos: dataSeparated){ 
+//				String nuevoDato3 = datos;
+//
+//					String nuevoDato4 = nuevoDato3;
+//					/*Correcor ortografico*/
+//					nuevoDato4 = nuevoDato4.replaceAll("b", "v");
+//					nuevoDato4 = nuevoDato4.replaceAll("z", "s");
+//					
+//					nuevoDato4 = nuevoDato4.replaceAll("(.)\\1", "$1"); /*Elimina caracteres repetidos*/
+//					
+//					for( int p2 = 0; p2 < level3.length; p2++){ //Por cada palabra del diccionario vas a analizar
+//						if(nuevoDato4.contains(level3[p2])){ //Si corresponden (son iguales) ejecuta
+//							noGoodWords3 = noGoodWords3 + 1; //Sumar el numero de palabras encontradas
+//							noGoodWordsArray3.add(nuevoDato3); //Agregar a un arrayList las palabras encontradas nueviDato = String original, sin cambio de letras
+//						}
+//					}
+//				}
+			
+			/*[Analisis avanzado] - Corrector ortografico y morfología conjunta*/
+			for(String datos: dataSeparated){ 
+				String nuevoDato = datos;
+				
+				Pattern p = Pattern.compile("[0-9]");
+				Matcher m = p.matcher(nuevoDato);
+				boolean b = m.find();
+
+				if (b){ //Si detecta caracteres especiales
+					System.out.println("Numeros detectados en "+nuevoDato);
+					String nuevoDato5 = nuevoDato;
+					/*Based from https://gustavoarielschwartz.files.wordpress.com/2013/05/letras-x-nc3bameros.jpg*/
+					nuevoDato5 = nuevoDato5.replaceAll("1", "i");
+					//nuevoDato2 = nuevoDato2.replaceAll("2", "s");
+					nuevoDato5 = nuevoDato5.replaceAll("3", "e");
+					nuevoDato5 = nuevoDato5.replaceAll("4", "a");
+					nuevoDato5 = nuevoDato5.replaceAll("5", "s");
+					nuevoDato5 = nuevoDato5.replaceAll("6", "g");
+					nuevoDato5 = nuevoDato5.replaceAll("7", "t");
+					nuevoDato5 = nuevoDato5.replaceAll("8", "b");
+					nuevoDato5 = nuevoDato5.replaceAll("9", "p");
+					nuevoDato5 = nuevoDato5.replaceAll("0", "o");
+					
+					nuevoDato5 = nuevoDato5.replaceAll("b", "v");
+					nuevoDato5 = nuevoDato5.replaceAll("z", "s");
+					
+					nuevoDato5 = nuevoDato5.replaceAll("(.)\\1", "$1"); /*Elimina caracteres repetidos*/
+					
+					for( int p2 = 0; p2 < level3.length; p2++){ //Por cada palabra del diccionario vas a analizar
+						if(nuevoDato5.contains(level3[p2])){ //Si corresponden (son iguales) ejecuta
+							noGoodWords3 = noGoodWords3 + 1; //Sumar el numero de palabras encontradas
+							noGoodWordsArray3.add(nuevoDato); //Agregar a un arrayList las palabras encontradas nueviDato = String original, sin cambio de letras
+						}
+					}
+				}
+			}
+			
 		}
 		
 		public static void especiales(){
@@ -235,21 +408,67 @@ public class ParseNeural {
 				for(String dataToAnalize : specialCharsArray){
 					if(dataToAnalize.contains("Ñ")){
 						dataToAnalize = dataToAnalize.toLowerCase();
-						int size = dataToAnalize.length(); //TODO Analizarlos por medio de red neuronal
+						dataToAnalize.replaceAll("ñ", "n");
+						//TODO Analizarlos por medio de red neuronal o algoritmo
+					}
+					if(dataToAnalize.contains("$") && dataToAnalize.contains("#")){
+						System.out.println("Posible insulto oculto "+dataToAnalize);
+						noGoodWordsArray3.add(dataToAnalize);
 					}
 					if(dataToAnalize.length() == 2){
 						System.out.println("Posible emoticon "+dataToAnalize);
+						emoticonArray.add(dataToAnalize);
 					}
 					if(dataToAnalize.length() == 3){
 						System.out.println("Posible insulto simplificado "+dataToAnalize);
+						if(dataToAnalize.contains("-") || dataToAnalize.contains(":")){ //Si detecta un guion medio lo cataloga como emoticon... El gion medio se puede considerar estandar en emoticones de longitud 3
+							System.out.println("Emoticon de 3 caracteres detectado en: "+dataToAnalize);
+							emoticonArray.add(dataToAnalize);
+						}else{
+							if(dataToAnalize.contains(".")){
+								w = 0;
+								x = 1;
+								y = 0;
+								z = 0;
+								//neural(w,x,y,z);
+								if(resultadoNeural >= 0.5){
+									noGoodWordsArray3.add(dataToAnalize);
+									System.out.println(dataToAnalize+" se ha catalogado como nivel 3");
+								}
+							}
+						}
 					}
 					if(dataToAnalize.length() >= 4){
+						int counterAst = 0;
+						int counterSharp = 0;
 						System.out.println("Posible insulto o repeticion de letras"+dataToAnalize);
+						if(dataToAnalize.contains("*")){ 
+							char charArray[] = dataToAnalize.toCharArray();
+							for(int oj = 0; oj < charArray.length; oj++){
+								if(charArray[oj] == '*'){
+									counterAst = counterAst + 1;
+									if(counterAst >= 1){
+										String asteris = new String(charArray);
+										noGoodWordsArray3.add(asteris);
+										System.out.println("insulto disfrazado - Nivel 3 aplicado "+asteris);
+									}
+								}
+								
+						if(charArray[oj] == '#'){
+							counterSharp = counterSharp + 1;
+							if(counterSharp >= 2){
+								String sharps = new String(charArray);
+								noGoodWordsArray3.add(sharps);
+								System.out.println("insulto disfrazado - Nivel 3 aplicado "+sharps);
+							}
+						}
+								
 					}
-					if(dataToAnalize.contains("*")){
-						System.out.println("insulto disfrazado - Nivel 3 aplicado "+dataToAnalize);
-						noGoodWordsArray3.add(dataToAnalize);
-					}
+				}
+			}
+					
+
+					
 				}
 			}
 		}
@@ -286,10 +505,32 @@ public class ParseNeural {
 				Main.lblNivel.setText(userBad);
 			}else if(noGoodWords1 == noGoodWords2){
 				//TODO Toma de decisión por medio de red neuronal
+				w = 1;
+				x = 1;
+				y = 0;
+				z = 0;
+				
+				neural(w,x,y,z);
 			}else if(noGoodWords2 == noGoodWords3){
 				//TODO Toma de decisión por medio de red neuronal
+				w = 0;
+				x = 1;
+				y = 1;
+				z = 0;
+				
+				neural(w,x,y,z);
 			}else if(noGoodWords3 == noGoodWords1){
 				//TODO Toma de decisión por medio de red neuronal
+				w = 1;
+				x = 0;
+				y = 1;
+				z = 0;
+				
+				neural(w,x,y,z);
+			}else if(noGoodWords1 == noGoodWords2 && noGoodWords2 == noGoodWords3 && noGoodWords3 == noGoodWords1){
+				userBad = "NO cuenta con registros de agresividad";
+				Main.lblNivel.setForeground(Color.black);
+				Main.lblNivel.setText(userBad);
 			}else{
 				//userBad = "El usuario "+Main.comboBox.getSelectedItem()+" NO cuenta con registros de agresividad";
 				userBad = "NO cuenta con registros de agresividad";
@@ -301,25 +542,64 @@ public class ParseNeural {
 			System.out.println("**************************************************************************************************\n");
 			
 			Main.lblNivel.setText(userBad);
-			Main.textAreaBadWords.setText("Palabras Nivel 1\n");
+			Main.textAreaBadWords.setText("**Palabras Nivel 1**\n");
 			for(int bg = 0; bg < noGoodWordsArray1.size(); bg++){
 				//System.out.println(noGoodWordsArray1.get(bg)); [TESTING]
 				Main.textAreaBadWords.append("\n"+noGoodWordsArray1.get(bg));
 			}
-			Main.textAreaBadWords.append("\nPalabras Nivel 2\n");
+			Main.textAreaBadWords.append("\n\n**Palabras Nivel 2**\n");
 			for(int bg2 = 0; bg2 < noGoodWordsArray2.size(); bg2++){
 				//System.out.println(noGoodWordsArray2.get(bg2));  [TESTING]
 				Main.textAreaBadWords.append("\n"+noGoodWordsArray2.get(bg2));
 			}
-			Main.textAreaBadWords.append("\nPalabras Nivel 3\n");
+			Main.textAreaBadWords.append("\n\n**Palabras Nivel 3**\n");
 			for(int bg3 = 0; bg3 < noGoodWordsArray3.size(); bg3++){
 				//System.out.println(noGoodWordsArray3.get(bg3));  [TESTING]
 				Main.textAreaBadWords.append("\n"+noGoodWordsArray3.get(bg3));
+			}
+			Main.textAreaBadWords.append("\n\n**Emoticones**\n");
+			for(int bg4 = 0; bg4 < emoticonArray.size(); bg4++){
+				//System.out.println(noGoodWordsArray3.get(bg3));  [TESTING]
+				Main.textAreaBadWords.append("\n"+emoticonArray.get(bg4));
 			}
 			
 			/*float percentage = (sum/TotalWords)*100;
 			System.out.println(percentage);
 			Main.labelPercentage.setText(""+percentage+"%");*/
+			
+			/****Guardado de reporte****/
+			int input = JOptionPane.showOptionDialog(null, "¿Desea guardar un reporte XML del analisis?", "Feedback", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Si", "No"}, null);
+			if(input == JOptionPane.OK_OPTION){
+				 /***Saving Settings - Report Generator on XML format***/
+			    Properties saveProps = new Properties();
+			    saveProps.setProperty("Usuario categorizado nivel", Main.lblNivel.getText());
+			    saveProps.setProperty("Palabras_totales", ""+TotalWords);
+			    saveProps.setProperty("Palabras_nivel_1", Main.textN1.getText());
+			    saveProps.setProperty("Palabras_nivel_2", Main.textN2.getText());
+			    saveProps.setProperty("Palabras_nivel_3", Main.textN3.getText());
+			    try {
+			    	JFileChooser fc = new JFileChooser();
+			    	fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			    	int respuesta = fc.showSaveDialog(fc);
+			    	
+			    	if(respuesta == JFileChooser.APPROVE_OPTION){
+			    	File carpetaElegida = fc.getSelectedFile();
+			    	saveProps.storeToXML(new FileOutputStream(carpetaElegida+"\\report_"+Main.comboBox.getSelectedItem()+".xml"), "");
+					JOptionPane.showMessageDialog(null, "Se ha guardado un reporte del usuario "+Main.comboBox.getSelectedItem());
+			    	}
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					JOptionPane.showMessageDialog(null, "Error de guardado de reporte");
+					e.printStackTrace();
+				}
+			}else{
+				
+			}
+			/****Guardado de reporte****/
+
 		}
 		
 		public static void resetingValues(){
@@ -331,24 +611,27 @@ public class ParseNeural {
 			noGoodWordsArray2.clear();
 			noGoodWordsArray3.clear();
 			specialCharsArray.clear();
+			emoticonArray.clear();
 			
-			BDData.clear(); //Delete data for prevent bad results
+			BDData.clear();
 			datosBD.clear();
 			dataSeparated.clear();
-			Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
+			Main.labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
 			System.out.println("Valores reseteados");
 		}
 	
 	public static void neural(float w,float x, float y, float z){
 
 		try{
-			Fann fann = new Fann( "C:\\Users\\David\\Downloads\\FANN\\FILES\\ms4.net" );
-		    float[] inputs = new float[]{w,x,y,z};
+			Fann fann = new Fann( homeDir+"\\Downloads\\FANN\\FILES\\ms4.net" );
+
+			float[] inputs = new float[]{w,x,y,z};
 		    float[] outputs = fann.run( inputs );
 		    fann.close();
 		    
 		    for (float f : outputs) {
-		        System.out.print(f + ",");
+		        System.out.print(f);
+			    resultadoNeural = f;
 		    }
 		}catch(Exception e){
 			System.out.println("Error " +e.getMessage());

@@ -5,6 +5,7 @@
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -32,6 +33,7 @@ import java.awt.Color;
 import java.io.IOException;
 
 import javax.swing.ImageIcon;
+import java.awt.Toolkit;
 
 
 public class Main {
@@ -40,6 +42,7 @@ public class Main {
 	public static JTable table;
 	public static ConexionSQL conex = new ConexionSQL();
 	
+	Color grayMaterial1 = Color.decode("#616161");
 	//public static boolean comprobador = true;
 
 	public static JComboBox comboBox = new JComboBox();
@@ -86,17 +89,17 @@ public class Main {
 	 */
 	public void initialize() {
 		frame = new JFrame();
+		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("img\\logo48.png"));
 		frame.setBounds(100, 100, 750, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setName("Interface");
 		frame.setTitle("Sistemas Inteligentes");
 		frame.setResizable(false);
 		frame.getContentPane().setLayout(null);
+		//frame.getContentPane().setBackground(grayMaterial1);
+		frame.getContentPane().setFont(new Font("Segoe UI", Font.PLAIN, 11));
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//System.out.println("Hakuna matata");
-				//modeloTabla.setRowCount(0);
-				//System.out.println(sql1);
 				nuevaTabla();
 				modeloTabla.fireTableDataChanged();
 			}
@@ -215,8 +218,8 @@ public class Main {
 		frame.getContentPane().add(textAreaBadWords);
 		
 		
-		labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
-		labelImagen.setBounds(29, 277, 213, 185);
+		//labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
+		labelImagen.setBounds(29, 277, 230, 185);
 		frame.getContentPane().add(labelImagen);
 		
 		
@@ -240,6 +243,9 @@ public class Main {
 	}
 
 	public static void app(){
+		
+		
+		labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
 		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario ORDER BY Usu_Nombre ASC"; /*Lllenado de ComboBox*/
 		try{
 			ConexionSQL conne = new ConexionSQL();

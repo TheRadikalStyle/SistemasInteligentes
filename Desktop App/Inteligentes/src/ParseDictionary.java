@@ -47,7 +47,7 @@ public class ParseDictionary {
 	static String sql2 = "";
 
 	public static void main(String args[]){
-		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana_Think.gif"));
+		Main.labelImagen.setIcon(new ImageIcon("img\\loading.gif"));
 		JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
 		Main.textAreaBadWords.setText("");
 		dataObtain();
@@ -225,7 +225,7 @@ public class ParseDictionary {
 		BDData.clear(); //Delete data for prevent bad results
 		datosBD.clear();
 		dataSeparated.clear();
-		Main.labelImagen.setIcon(new ImageIcon("img\\Cortana.gif"));
+		Main.labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
 		System.out.println("Valores reseteados");
 	}
 }
