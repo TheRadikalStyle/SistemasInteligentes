@@ -86,7 +86,9 @@ public class ParseNeural {
 			especiales();
 			resultados();
 			//neural();
-			resetingValues();		    
+			resetingValues();	
+			Sounds sn = new Sounds();
+			sn.PlaySounds("Success_1");
 		}
 	}
 	

@@ -3,8 +3,6 @@ import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
-import javax.swing.JToolBar;
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -15,11 +13,8 @@ import java.awt.Font;
 
 public class About {
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	Color greyMaterial = Color.decode("#bdbdbd");
-	
-	private boolean holding;
-    private int seconds;
-    private Thread thread;
+	Color greyMaterial = Color.decode("#757575");
+
 	
 	public JFrame frmAcercaDe;
 
@@ -60,16 +55,15 @@ public class About {
 			}
 			@Override
 			public void mousePressed(MouseEvent arg0) {
-				holding = true;
-		        thread = new Thread();
-		        thread.start();
+				ThreadAbout.holding = true;
+		        ThreadAbout hilo1 = new ThreadAbout();
+		        hilo1.start();
 		        System.out.println("Presionando sobre el panel");
 			}
 			@Override
 			public void mouseReleased(MouseEvent e)
 			    {
-			        holding = false;
-			        System.out.println("Held for: "+seconds);
+			        ThreadAbout.holding = false;
 			    }
 
 		});
@@ -125,19 +119,5 @@ public class About {
 		frmAcercaDe.setLocation(dim.width/2-frmAcercaDe.getSize().width/2, dim.height/2-frmAcercaDe.getSize().height/2);
 		//frmAcercaDe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-	
-	public void run(){
-        try{
-            while(holding){
-                seconds++;
-                // put some code here
-                if(seconds==3){
-                    holding = false;
-                    System.out.println("Held for maximum time!");
-                }
-            }
-        }catch(Exception e){e.printStackTrace();
-        }
-        }
 	
 }

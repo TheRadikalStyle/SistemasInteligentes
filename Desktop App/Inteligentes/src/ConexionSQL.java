@@ -27,9 +27,11 @@ public class ConexionSQL {
 			conn = DriverManager.getConnection(url, user, password);
 			System.out.println("Conectado exitosamente");
 		}catch(SQLException e){
+			Sounds sou = new Sounds();
+			sou.PlaySounds("Error");
 			System.out.println("Error de MySQL" /*+e.getMessage()*/);
 			//JOptionPane.showMessageDialog(null, "Posiblemente la base de datos esta fuera de linea");
-			int input = JOptionPane.showOptionDialog(null, "Se saldrá del programa", "Error de conexion a Base de Datos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Aceptar/Salir", "Reintentar"}, null);
+			int input = JOptionPane.showOptionDialog(null, "Se saldrá del programa", "Error de conexion a Base de Datos", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, new String[]{"Aceptar", "Salir"}, null);
 			if(input == JOptionPane.OK_OPTION){
 				System.exit(0);
 			}else{
@@ -40,8 +42,12 @@ public class ConexionSQL {
 			}
 		}catch(ClassNotFoundException e){
 			e.printStackTrace();
+			Sounds sou = new Sounds();
+			sou.PlaySounds("Error");
 		}catch(Exception e){
 			System.out.println("Error general "+ e.getMessage());
+			Sounds sou = new Sounds();
+			sou.PlaySounds("Error");
 		}
 //		if(attempt == 3){
 //			JOptionPane.showMessageDialog(null, "Numero de intentos de reconexion alcanzado, se saldrá del programa");
@@ -57,6 +63,8 @@ public class ConexionSQL {
 			System.out.println("Desconexion exitosa");
 		}catch(SQLException e){
 			e.printStackTrace();
+			Sounds sou = new Sounds();
+			sou.PlaySounds("Error");
 		}
 
 	}

@@ -3,15 +3,12 @@
  * Project name: Ghost Freak
  * */
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
-import java.awt.Image;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
@@ -30,7 +27,6 @@ import javax.swing.JTextField;
 import javax.swing.JTextArea;
 
 import java.awt.Color;
-import java.io.IOException;
 
 import javax.swing.ImageIcon;
 import java.awt.Toolkit;
@@ -89,6 +85,7 @@ public class Main {
 	 */
 	public void initialize() {
 		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("img\\logo48.png"));
 		frame.setBounds(100, 100, 750, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,6 +95,7 @@ public class Main {
 		frame.getContentPane().setLayout(null);
 		//frame.getContentPane().setBackground(grayMaterial1);
 		frame.getContentPane().setFont(new Font("Segoe UI", Font.PLAIN, 11));
+		comboBox.setBackground(Color.LIGHT_GRAY);
 		comboBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				nuevaTabla();
@@ -113,12 +111,14 @@ public class Main {
 		frame.getContentPane().add(lblComboboxlabel);
 
 		table = new JTable();
+		table.setBackground(Color.LIGHT_GRAY);
 		table.setRowSelectionAllowed(false);
 		table.setBounds(12, 62, 624, 166);
 		frame.getContentPane().add(table);
 
 
 		JButton btnDiccionarios = new JButton("Diccionarios");
+		btnDiccionarios.setBackground(Color.LIGHT_GRAY);
 		btnDiccionarios.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ParseDictionary pd = new ParseDictionary();
@@ -129,6 +129,7 @@ public class Main {
 		frame.getContentPane().add(btnDiccionarios);
 
 		JButton btnRedNeuronal = new JButton("Red Neuronal");
+		btnRedNeuronal.setBackground(Color.LIGHT_GRAY);
 		btnRedNeuronal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				ParseNeural Pfann = new ParseNeural();
@@ -151,16 +152,19 @@ public class Main {
 		frame.getContentPane().add(lblSeleccionaMedioDe);
 		
 		textN1 = new JTextField();
+		textN1.setBackground(Color.LIGHT_GRAY);
 		textN1.setBounds(444, 312, 86, 20);
 		frame.getContentPane().add(textN1);
 		textN1.setColumns(10);
 		
 		textN2 = new JTextField();
+		textN2.setBackground(Color.LIGHT_GRAY);
 		textN2.setBounds(444, 340, 86, 20);
 		frame.getContentPane().add(textN2);
 		textN2.setColumns(10);
 		
 		textN3 = new JTextField();
+		textN3.setBackground(Color.LIGHT_GRAY);
 		textN3.setBounds(444, 371, 86, 20);
 		frame.getContentPane().add(textN3);
 		textN3.setColumns(10);
@@ -190,11 +194,13 @@ public class Main {
 		frame.getContentPane().add(lblTotalp);
 		
 		textTotalPalabras = new JTextField();
+		textTotalPalabras.setBackground(Color.LIGHT_GRAY);
 		textTotalPalabras.setBounds(444, 414, 86, 20);
 		frame.getContentPane().add(textTotalPalabras);
 		textTotalPalabras.setColumns(10);
 		
 		textTotalMalas = new JTextField();
+		textTotalMalas.setBackground(Color.LIGHT_GRAY);
 		textTotalMalas.setBounds(444, 442, 86, 20);
 		frame.getContentPane().add(textTotalMalas);
 		textTotalMalas.setColumns(10);
@@ -211,6 +217,7 @@ public class Main {
 		
 		lblNivel.setBounds(29, 486, 315, 24);
 		frame.getContentPane().add(lblNivel);
+		textAreaBadWords.setBackground(Color.LIGHT_GRAY);
 		textAreaBadWords.setEditable(false);
 		
 		
@@ -231,6 +238,7 @@ public class Main {
 		frame.getContentPane().add(scrollPane_1);
 		
 		JButton btnNewButton = new JButton("");
+		btnNewButton.setBackground(Color.LIGHT_GRAY);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				About ab = new About();

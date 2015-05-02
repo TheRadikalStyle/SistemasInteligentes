@@ -57,6 +57,8 @@ public class ParseDictionary {
 		analisis_lvl3();
 		resultados();
 		resetingValues();
+		Sounds snd = new Sounds();
+		snd.PlaySounds("Success_1");
 	}
 
 	public static void dataObtain(){
