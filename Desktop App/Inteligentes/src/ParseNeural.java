@@ -625,10 +625,11 @@ public class ParseNeural {
 					JOptionPane.showMessageDialog(null, "Se ha guardado un reporte del usuario "+Main.comboBox.getSelectedItem());
 			    	}
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
+					Sounds.PlaySounds("Error");
+					JOptionPane.showMessageDialog(null, "Error de guardado de reporte");
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
+					Sounds.PlaySounds("Error");
 					JOptionPane.showMessageDialog(null, "Error de guardado de reporte");
 					e.printStackTrace();
 				}
