@@ -5,11 +5,16 @@
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
+import java.io.IOException;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.imageio.ImageIO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.JFrame;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -29,6 +34,7 @@ import javax.swing.JTextArea;
 import java.awt.Color;
 
 import javax.swing.ImageIcon;
+
 import java.awt.Toolkit;
 
 
@@ -86,7 +92,9 @@ public class Main {
 	public void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frame.setIconImage(Toolkit.getDefaultToolkit().getImage("img\\logo48.png"));
+		//frame.setIconImage(Toolkit.getDefaultToolkit().getImage("img\\logo48.png"));
+		URL url = getClass().getResource("/img/logo48.png");
+		frame.setIconImage(new ImageIcon(url).getImage());
 		frame.setBounds(100, 100, 750, 550);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setName("Interface");
@@ -245,15 +253,23 @@ public class Main {
 				ab.main(null);
 			}
 		});
-		btnNewButton.setIcon(new ImageIcon("img\\about2.png"));
+		//btnNewButton.setIcon(new ImageIcon("resources\\img\\about2.png"));
+		try {
+		    Image img = ImageIO.read(getClass().getResource("/img/about2.png"));
+		   btnNewButton.setIcon(new ImageIcon(img));
+		  	}catch (IOException ex) {
+		  		JOptionPane.showMessageDialog(null, "No se pueden cargar las imagenes");
+		  }
+		//URL url1 = getClass().getResource("/img/about2.png");
+		//btnNewButton.setIconImage(new ImageIcon(url1).getImage());
 		btnNewButton.setBounds(666, 11, 66, 39);
 		frame.getContentPane().add(btnNewButton);
 	}
 
 	public static void app(){
 		
-		
-		labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
+		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("img/normal.gif"));
+		labelImagen.setIcon(imageIcon);
 		String sql = "SELECT DISTINCT Usu_Nombre FROM usuario ORDER BY Usu_Nombre ASC"; /*Lllenado de ComboBox*/
 		try{
 			ConexionSQL conne = new ConexionSQL();

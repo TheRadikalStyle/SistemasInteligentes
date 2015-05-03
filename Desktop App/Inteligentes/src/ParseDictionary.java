@@ -47,7 +47,9 @@ public class ParseDictionary {
 	static String sql2 = "";
 
 	public static void main(String args[]){
-		Main.labelImagen.setIcon(new ImageIcon("img\\loading.gif"));
+		//Main.labelImagen.setIcon(new ImageIcon("resources\\img\\loading.gif"));
+		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("img/loading.gif"));
+		Main.labelImagen.setIcon(imageIcon);
 		JOptionPane.showMessageDialog(null, "Analisis por diccionario del usuario "+Main.comboBox.getSelectedItem());
 		Main.textAreaBadWords.setText("");
 		dataObtain();
@@ -194,17 +196,17 @@ public class ParseDictionary {
 		System.out.println("**************************************************************************************************\n");
 		
 		Main.lblNivel.setText(userBad);
-		Main.textAreaBadWords.setText("Palabras Nivel 1\n");
+		Main.textAreaBadWords.setText("**Palabras Nivel 1**\n");
 		for(int bg = 0; bg < noGoodWordsArray1.size(); bg++){
 			//System.out.println(noGoodWordsArray1.get(bg)); [TESTING]
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray1.get(bg));
 		}
-		Main.textAreaBadWords.append("\nPalabras Nivel 2\n");
+		Main.textAreaBadWords.append("\n\n**Palabras Nivel 2**\n");
 		for(int bg2 = 0; bg2 < noGoodWordsArray2.size(); bg2++){
 			//System.out.println(noGoodWordsArray2.get(bg2));  [TESTING]
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray2.get(bg2));
 		}
-		Main.textAreaBadWords.append("\nPalabras Nivel 3\n");
+		Main.textAreaBadWords.append("\n\n**Palabras Nivel 3**\n");
 		for(int bg3 = 0; bg3 < noGoodWordsArray3.size(); bg3++){
 			//System.out.println(noGoodWordsArray3.get(bg3));  [TESTING]
 			Main.textAreaBadWords.append("\n"+noGoodWordsArray3.get(bg3));
@@ -227,7 +229,9 @@ public class ParseDictionary {
 		BDData.clear(); //Delete data for prevent bad results
 		datosBD.clear();
 		dataSeparated.clear();
-		Main.labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
+		//Main.labelImagen.setIcon(new ImageIcon("resources\\img\\normal.gif"));
+		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("img/normal.gif"));
+		Main.labelImagen.setIcon(imageIcon);
 		System.out.println("Valores reseteados");
 	}
 }

@@ -61,13 +61,16 @@ public class ParseNeural {
 	
 	
 	public static void main(){
-		Main.labelImagen.setIcon(new ImageIcon("img\\loading.gif"));
+		//Main.labelImagen.setIcon(new ImageIcon("img\\loading.gif"));
+		//Main.labelImagen.setIcon(new ImageIcon("resources\\img\\loading.gif"));
+		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("img/loading.gif"));
+		Main.labelImagen.setIcon(imageIcon);
 		JOptionPane.showMessageDialog(null, "Analisis por red neuronal del usuario "+Main.comboBox.getSelectedItem());
 		Main.textAreaBadWords.setText("");
 		
 		//TODO Aqui deberia haber un TRY/CATCH [Ya está pero no creo que funcione bien]
 		try{
-			System.setProperty("jna.library.path", homeDir+"\\Downloads\\FANN\\FANN\\bin\\");
+			System.setProperty("jna.library.path", homeDir+"\\FANN\\bin\\");
 			System.out.println( System.getProperty("jna.library.path") );
 			File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
 			System.out.println("Is the dll file there:" + file.exists());
@@ -432,7 +435,7 @@ public class ParseNeural {
 								x = 1;
 								y = 0;
 								z = 0;
-								//neural(w,x,y,z);
+								neural(w,x,y,z);
 								if(resultadoNeural >= 0.5){
 									noGoodWordsArray3.add(dataToAnalize);
 									System.out.println(dataToAnalize+" se ha catalogado como nivel 3");
@@ -513,6 +516,11 @@ public class ParseNeural {
 				z = 0;
 				
 				neural(w,x,y,z);
+				if(resultadoNeural <= 0.50){
+					userBad = "Agresividad Nivel 2 - (Red Neuronal)";
+					Main.lblNivel.setForeground(Color.blue);
+					Main.lblNivel.setText(userBad);
+				}
 			}else if(noGoodWords2 == noGoodWords3){
 				//TODO Toma de decisión por medio de red neuronal
 				w = 0;
@@ -521,6 +529,11 @@ public class ParseNeural {
 				z = 0;
 				
 				neural(w,x,y,z);
+				if(resultadoNeural <= 0.60){
+					userBad = "Agresividad Nivel 3 - (Red Neuronal)";
+					Main.lblNivel.setForeground(Color.red);
+					Main.lblNivel.setText(userBad);
+				}
 			}else if(noGoodWords3 == noGoodWords1){
 				//TODO Toma de decisión por medio de red neuronal
 				w = 1;
@@ -529,6 +542,11 @@ public class ParseNeural {
 				z = 0;
 				
 				neural(w,x,y,z);
+				if(resultadoNeural <= 0.60){
+					userBad = "Agresividad Nivel 3 - (Red Neuronal)";
+					Main.lblNivel.setForeground(Color.red);
+					Main.lblNivel.setText(userBad);
+				}
 			}else if(noGoodWords1 == noGoodWords2 && noGoodWords2 == noGoodWords3 && noGoodWords3 == noGoodWords1){
 				userBad = "NO cuenta con registros de agresividad";
 				Main.lblNivel.setForeground(Color.black);
@@ -574,6 +592,7 @@ public class ParseNeural {
 			if(input == JOptionPane.OK_OPTION){
 				 /***Saving Settings - Report Generator on XML format***/
 			    Properties saveProps = new Properties();
+			    saveProps.setProperty("Nombre_Usuario",""+Main.comboBox.getSelectedItem());
 			    saveProps.setProperty("Usuario categorizado nivel", Main.lblNivel.getText());
 			    saveProps.setProperty("Palabras_totales", ""+TotalWords);
 			    saveProps.setProperty("Palabras_nivel_1", Main.textN1.getText());
@@ -618,15 +637,19 @@ public class ParseNeural {
 			BDData.clear();
 			datosBD.clear();
 			dataSeparated.clear();
-			Main.labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
+			//Main.labelImagen.setIcon(new ImageIcon("img\\normal.gif"));
+			ImageIcon imageIcon = new ImageIcon(Main.class.getResource("img/normal.gif"));
+			Main.labelImagen.setIcon(imageIcon);
 			System.out.println("Valores reseteados");
 		}
 	
 	public static void neural(float w,float x, float y, float z){
 
 		try{
-			Fann fann = new Fann( homeDir+"\\Downloads\\FANN\\FILES\\ms4.net" );
-
+			//Fann fann = new Fann( homeDir+"\\Downloads\\FANN\\FILES\\ms4.net" );
+			String fannPath = new String(""+ParseNeural.class.getResource("NeuralFiles/ANN.net"));
+		    //Fann fann = new Fann(System.getProperty("user.dir") +"/NeuralFiles/ANN.net");
+			Fann fann = new Fann(fannPath);
 			float[] inputs = new float[]{w,x,y,z};
 		    float[] outputs = fann.run( inputs );
 		    fann.close();
