@@ -19,7 +19,8 @@ import javax.swing.JOptionPane;
 import com.googlecode.fannj.Fann;
 
 public class ParseNeural {
-	static String homeDir = System.getProperty("user.home");
+	//static String homeDir = System.getProperty("user.home");
+	static String homeDir = System.getProperty("user.dir");
 	static float w;
 
 	static float x;
@@ -74,24 +75,39 @@ public class ParseNeural {
 			System.out.println( System.getProperty("jna.library.path") );
 			File file = new File(System.getProperty("jna.library.path") + "fannfloat.dll");
 			System.out.println("Is the dll file there:" + file.exists());
-			try{
-				System.load(file.getAbsolutePath());
-				System.out.println("fannfloat dll cargado exitosamente");
-			}catch(Exception ex){
-			System.out.println("Ha ocurrido un error en la carga del dll fann " +ex);
+			if(file.exists()){
+				try{
+					System.load(file.getAbsolutePath());
+					System.out.println("fannfloat dll cargado exitosamente");
+					Sounds.PlaySounds("Success_2");
+				}catch(Exception ex){
+				Sounds.PlaySounds("Error");
+				System.out.println("Ha ocurrido un error en la carga del dll fann " +ex);
+				JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la carga de fannfloat.dll [Se cerrara el programa]");
+				System.exit(0);
+				}finally{
+					dataObtaining();
+					dataRecolection();
+					analisis_lvl1();
+					analisis_lvl2();
+					analisis_lvl3();
+					especiales();
+					resultados();
+					//neural();
+					resetingValues();	
+					Sounds sn = new Sounds();
+					sn.PlaySounds("Success_1");
+				}
+				
+			}else{
+				Sounds.PlaySounds("Error");
+				System.out.println("Ha ocurrido un error en la carga del dll fann ");
+				JOptionPane.showMessageDialog(null, "Ha ocurrido un error en la carga de fannfloat.dll [Se cerrara el programa]");
+				System.exit(0);
 			}
-		}finally{
-			dataObtaining();
-			dataRecolection();
-			analisis_lvl1();
-			analisis_lvl2();
-			analisis_lvl3();
-			especiales();
-			resultados();
-			//neural();
-			resetingValues();	
-			Sounds sn = new Sounds();
-			sn.PlaySounds("Success_1");
+
+	}catch(Exception ed){
+		Sounds.PlaySounds("Error");
 		}
 	}
 	
