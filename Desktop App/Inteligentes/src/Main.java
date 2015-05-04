@@ -267,6 +267,11 @@ public class Main {
 	}
 
 	public static void app(){
+		String osType = new String(System.getProperty("os.arch"));//Salir porque FANN no es compatible con sistemas x64
+		if(osType.equals("amd64")){
+			JOptionPane.showMessageDialog(null, "Tu sistema operativo es "+osType+" (64bits) se necesita una arquitectura x86 (32bits) para funcionar correctamente");
+			System.exit(0);
+		}
 		
 		ImageIcon imageIcon = new ImageIcon(Main.class.getResource("img/normal.gif"));
 		labelImagen.setIcon(imageIcon);
