@@ -11,14 +11,6 @@
 	<classpathentry exported="true" kind="lib" path="fannj-0.6.jar"/>
 	<classpathentry exported="true" kind="lib" path="jna-4.1.0.jar"/>
 	<classpathentry exported="true" kind="lib" path="basicplayer3.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/commons-logging-api.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/jl1.0.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/jogg-0.0.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/jorbis-0.0.15.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/jspeex0.9.7.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/mp3spi1.9.4.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/tritonus_share.jar"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/David/Downloads/basicplayer3.0/BasicPlayer3.0/lib/vorbisspi1.0.2.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
 		<attributes>
 			<attribute name="maven.pomderived" value="true"/>
@@ -29,5 +21,13 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry exported="true" kind="lib" path="commons-logging-api.jar"/>
+	<classpathentry exported="true" kind="lib" path="jl1.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="jogg-0.0.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="jorbis-0.0.15.jar"/>
+	<classpathentry exported="true" kind="lib" path="jspeex0.9.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="mp3spi1.9.4.jar"/>
+	<classpathentry exported="true" kind="lib" path="tritonus_share.jar"/>
+	<classpathentry exported="true" kind="lib" path="vorbisspi1.0.2.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

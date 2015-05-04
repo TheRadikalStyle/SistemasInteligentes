@@ -661,12 +661,8 @@ public class ParseNeural {
 		}
 	
 	public static void neural(float w,float x, float y, float z){
-
 		try{
-			//Fann fann = new Fann( homeDir+"\\Downloads\\FANN\\FILES\\ms4.net" );
-			String fannPath = new String(""+ParseNeural.class.getResource("NeuralFiles/ANN.net"));
-		    //Fann fann = new Fann(System.getProperty("user.dir") +"/NeuralFiles/ANN.net");
-			Fann fann = new Fann(fannPath);
+		    Fann fann = new Fann(System.getProperty("user.dir") +"/NeuralFiles/ANN.net");
 			float[] inputs = new float[]{w,x,y,z};
 		    float[] outputs = fann.run( inputs );
 		    fann.close();
